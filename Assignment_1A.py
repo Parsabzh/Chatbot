@@ -83,15 +83,15 @@ def model_testing(x, y, model):
     length = len(x)
     for i in range(length):
         count = count + 1
-        utterance = y[i]
-        classification = model(utterance)
+        dialogue = y[i]
+        classification = model(dialogue)
         print(classification)
-        dialogue = x[i]
+        utterance = x[i]
         if classification == dialogue:
             correct = correct + 1
         else:
-            print(utterance + " should be " + dialogue)
+            print(dialogue + " should be " + utterance)
     print(correct / count)
 
 
-model_testing(dt['dialogue'], dt['uttr'], baseline_classification2)
+model_testing(dt['uttr'],dt['dialogue'], baseline_classification2)
