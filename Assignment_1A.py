@@ -1,7 +1,8 @@
-# load libraries
+
+# load libraries 
 import numpy as np
 import pandas as pd
-import sklearn
+import sklearn 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
