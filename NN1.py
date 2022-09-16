@@ -1,5 +1,6 @@
 #%%
 # load libraries 
+from tkinter.font import _MetricsDict
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -10,6 +11,7 @@ from keras.models import Sequential
 from keras import layers
 from keras.backend import clear_session
 import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, plot_confusion_matrix
 
 #read dataset as dataframe
 df = pd.read_table("Data/dialog_acts.dat",index_col=False,names=["words"])
@@ -122,4 +124,11 @@ def plot_history(history):
     plt.legend()
 
 plot_history(history)
+# %%
+# plot confusion matrix
+from sklearn.metrics import confusion_matrix, plot_confusion_matrix, ConfusionMatrixDisplay
+y_pred = model.predict(x_test)
+matrix = confusion_matrix(y_test.argmax(axis=1), y_pred.argmax(axis=1))
+disp = ConfusionMatrixDisplay(confusion_matrix=matrix, display_labels=None)
+disp.plot()
 # %%
