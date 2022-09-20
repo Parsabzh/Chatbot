@@ -1,11 +1,14 @@
-
-# load libraries 
+# load libraries
 import numpy as np
 import pandas as pd
-import sklearn 
+import sklearn
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+from baselines import baseline_classification2
+from NN1 import NeuralNet
+from lr import create_model as create_lr_model
 
 # read dataset as dataframe
 df = pd.read_table("Data/dialog_acts.dat", index_col=False, names=["words"])
@@ -21,78 +24,37 @@ for line in line_list:
     uttr = line.replace("{} ".format(first_word), '')
     label.append(first_word.lower())
     text.append(uttr.lower())
-# add dialogue and utterance to new dataframe
-dt['dialogue'] = label
-dt['uttr'] = text
-
-
-# return the most frequent class as baseline
-def baseline_classification():
-    baseline = dt['dialogue'].mode()[0]
-    print(baseline)
-    return baseline
-
-
-# classify an utterance based on simple keywords
-def baseline_classification2(utterance):
-    keywords = {
-        'thankyou': ['thank', 'thank', 'thanks', 'thank', 'thanks', 'you'],
-        'ack': ['okay', 'ok', 'fine', 'great', 'cool'],
-        'affirm': ['yes', 'yeah', 'yep', 'yup', 'sure', 'of course', 'right', 'correct', 'indeed', 'absolutely'],
-        'bye': ['goodbye', 'bye', 'see you', 'later', 'soon'],
-        'confirm': ['is', 'it'],
-        'deny': ['dont', 'do not'],
-        'hello': ['hi', 'hello', 'hey', 'greetings', 'howdy'],
-        'inform': ['looking', 'for', 'want', 'need', 'searching', 'care'],
-        'negate': ['no', 'nope', 'nah'],
-        'null': ['cough', 'hm', 'unintelligble'],
-        'repeat': ['can', 'repeat'],
-        'reqalts': ['how', 'about', 'other', 'options', 'else', 'another', 'alternatives'],
-        'reqmore': ['more'],
-        'request': ['what', 'where', 'when', 'who', 'which', 'how', 'why', 'whats', 'wheres', 'whens', 'whos', 'whens',
-                    'hows', 'whys', 'phone', 'number', 'price', 'range', 'address', 'can', 'type', 'code', 'post'],
-        'restart': ['start', 'over', 'restart'],
-    }
-    counts = {}
-    for word in utterance.split():
-        for key in keywords:
-            if word in keywords[key]:
-                counts[key] = counts.get(key, 0) + 1
-
-    if counts != {}:
-        return max(counts, key=counts.get)
-    else:
-        return baseline_classification()
-
 
 # prepare trainset and testset
-x_train, x_test, y_train, y_test = train_test_split(dt['dialogue'], dt['uttr'], test_size=0.15, random_state=0)
+x_train, x_test, y_train, y_test = train_test_split(text, label, test_size=0.15, random_state=0)
 
 
-# define model
-# lr = LogisticRegression()
-# # fit the model
-# lr.fit(x_train, y_train)
-# # make a prediction
-# predictions = lr.predict(x_test)
-# score = lr.score(x_test, y_test)
-# print(score)
+nn = new NeuralNet(dt)
 
-def model_testing(x, y, model):
-    count = 0
-    correct = 0
-    length = len(x)
-    for i in range(length):
-        count = count + 1
-        dialogue = y[i]
-        classification = model(dialogue)
-        print(classification)
-        utterance = x[i]
-        if classification == dialogue:
-            correct = correct + 1
-        else:
-            print(dialogue + " should be " + utterance)
-    print(correct / count)
+# run a model using utterances and dialogue and return the predicted dialogue class for the utterance
+def run_features(utterances, dialogue, model):
+    predictions = []
+    i = 0
+    for utterance in utterances:
+        classification = model(utterance)
+        predictions.append(classification)
+        i += 1
+
+    return predictions
 
 
-model_testing(dt['uttr'],dt['dialogue'], baseline_classification2)
+# print the accuracy, precision, recall, and f1 score for the predicted dialogue classes and plot a confusion matrix
+def calculate_metrics(predictions, dialogue):
+    disp = ConfusionMatrixDisplay.from_predictions(dialogue, predictions)
+    acc = accuracy_score(dialogue, predictions)
+    recall = recall_score(dialogue, predictions, average='weighted')
+    precision = precision_score(dialogue, predictions, average='micro')
+    f1 = f1_score(dialogue, predictions, average='weighted')
+    print("Accuracy: " + str(acc) + " ,F1: " + str(f1), " ,Recall: " + str(recall), " ,Precision: " + str(precision))
+    plt.show()
+
+
+baseline_predictions = run_features(x_test, y_test, baseline_classification2)
+nn_predictions = run_features(x_test, y_test, nn.predict)
+
+calculate_metrics(baseline_predictions, y_test)

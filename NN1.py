@@ -1,5 +1,5 @@
 #%%
-# load libraries 
+# load libraries
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from keras.models import Sequential
 from keras import layers
 from keras import backend as K
- 
+
 #read dataset as dataframe
 df = pd.read_table("Data/dialog_acts.dat",index_col=False,names=["words"])
 label=[]
@@ -119,5 +119,11 @@ def create_model(dt):
     # print("Accuracy: {:.4f}".format(accuracy))
     return model
 
-# %%
-model = create_model(dt)
+class NeuralNet:
+    def __init__(self, dt):
+        model = create_model()
+        model.fit(x_train, y_train)
+
+    def predict(utterance):
+        prediction = model.predict(utterance)
+        return prediction
