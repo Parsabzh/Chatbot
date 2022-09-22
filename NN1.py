@@ -4,10 +4,10 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfVectorizer
 from keras.models import Sequential
 from keras import layers
 from keras import backend as K
+from sklearn.feature_extraction.text import CountVectorizer
 
 #read dataset as dataframe
 df = pd.read_table("Data/dialog_acts.dat",index_col=False,names=["words"])
@@ -72,8 +72,8 @@ def vectorize(dt):
     dt = change_label_NN(dt)
     #vectorize features and labels to change the text to the number
     dt['dialogue_act_id'] = dt['dialogue'].factorize()[0]
-    tfidf = TfidfVectorizer(sublinear_tf=True, min_df=5, norm='l2', encoding='latin-1', ngram_range=(1, 2), stop_words='english')
-    features = tfidf.fit_transform(dt['uttr']).toarray().astype(np.float32)
+    vectorizer = CountVectorizer(min_df=5, encoding='latin-1', ngram_range=(1, 2), stop_words='english')
+    features = vectorizer.fit_transform(dt['uttr']).toarray().astype(np.float32)
     labels = np.array(dt['NN_label'].tolist())
     #prepare dataset
     x_train, x_test, y_train, y_test = train_test_split(features,labels, test_size=0.15, random_state=0)
@@ -119,11 +119,23 @@ def create_model(dt):
     # print("Accuracy: {:.4f}".format(accuracy))
     return model
 
+
+
 class NeuralNet:
     def __init__(self, dt):
-        model = create_model()
-        model.fit(x_train, y_train)
+        model = create_model(dt)
+        return model
 
-    def predict(utterance):
-        prediction = model.predict(utterance)
+    def predict(model, sentence):
+        prediction = model.predict(sentence)
         return prediction
+
+model = create_model(dt)
+model.summary()
+
+#%%
+def predict(model, sentence):
+    prediction = model.predict(sentence)
+    return prediction
+predict(model, 'I thank you')
+# %%
