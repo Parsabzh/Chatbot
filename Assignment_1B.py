@@ -1,5 +1,5 @@
 import Levenshtein as ls
-import NeuralNet as neural_net_classifier
+from NN1 import NeuralNet as neural_net_classifier
 import pandas as pd
 class DialogManager:
     def __init__(self):
