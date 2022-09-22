@@ -9,8 +9,6 @@ from keras import backend as K
 from sklearn.feature_extraction.text import CountVectorizer
 import pickle
 
-#%%
-
 def create_dataframe():
     # read dataset as dataframe
     df = pd.read_table("Data/dialog_acts.dat", index_col=False, names=["words"])
@@ -32,9 +30,7 @@ def create_dataframe():
     dt['uttr'] = text
     return dt
 
-
 dt = create_dataframe()
-
 
 # change output for labels NN
 def change_label_NN(dt):
@@ -124,9 +120,6 @@ def create_model(dt):
     model.save('NeuralNet.h5')
     return model
 
-model = create_model(dt)
-model.summary()
-
 class NeuralNet:
     def __init__(self, dt):
         self.load_model()
@@ -138,7 +131,7 @@ class NeuralNet:
     
     def load_model(self):
         self.model = tf.keras.models.load_model('NeuralNet.h5')
-        return model
+        return
 
     def predict(self, sentence):
         sentence = [sentence]
@@ -147,7 +140,7 @@ class NeuralNet:
 
         vector = vectorizer.transform(sentence)
         
-        prediction = self.model.predict(vector)
+        prediction = self.model.predict(vector, verbose=0)
         output=[]
         for i in prediction[0]:
             if i>=0.5:
@@ -185,3 +178,4 @@ class NeuralNet:
             return 'request'
         if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]:
             return 'restart'
+        return 'inform'
