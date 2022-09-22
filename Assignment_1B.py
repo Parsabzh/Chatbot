@@ -1,22 +1,34 @@
 import Levenshtein as ls
+import NeuralNet as neural_net_classifier
+import pandas as pd
+class DialogManager:
+    def __init__(self):
+        self.state = 'start'
+        self.preferences = {}
+        self.dialogue_act = None
+        dt = pd.DataFrame(columns=['dialogue', 'uttr'])
+        self.nn = neural_net_classifier(dt)
 
-state = 'start'
+    def state_transition(self, state, utterance):
 
-
-def state_transition(state, utterance):
-
-    if state == 'goodbye':
-        state = 'end'
-        dialogue_act = "Thank you for using the system. Goodbye!"
-    return state, dialogue_act
-
-
-def restaurant_suggestions(preferences):
-    suggestions = []
-    return suggestions
+        if state == 'inform':
 
 
-while state != 'end':
-    utterance = input().lower()
-    state, dialogue_act = state_transition(state, utterance)
-    print(dialogue_act)
+        dialogue_class = self.nn.predict(utterance)
+        if state == 'goodbye':
+            state = 'end'
+            dialogue_act = "Thank you for using the system. Goodbye!"
+        return state, dialogue_act
+
+    def restaurant_suggestions(self):
+        preferences = self.preferences
+        suggestions = []
+        return suggestions
+
+    while state != 'end':
+        utterance = input().lower()
+        state, dialogue_act = state_transition(state, utterance)
+        print(dialogue_act)
+
+
+
