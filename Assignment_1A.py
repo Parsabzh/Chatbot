@@ -8,7 +8,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 from baselines import baseline_classification2
 from NN1 import NeuralNet
-from lr import create_model as create_lr_model
+#from lr import create_model as create_lr_model
 
 # read dataset as dataframe
 df = pd.read_table("Data/dialog_acts.dat", index_col=False, names=["words"])
@@ -54,7 +54,8 @@ def calculate_metrics(predictions, dialogue):
     plt.show()
 
 
-baseline_predictions = run_features(x_test, y_test, baseline_classification2)
+# baseline_predictions = run_features(x_test, y_test, baseline_classification2)
 nn_predictions = run_features(x_test, y_test, nn.predict)
+print(nn_predictions)
 
-calculate_metrics(baseline_predictions, y_test)
+calculate_metrics(nn_predictions, y_test)
