@@ -29,7 +29,7 @@ for line in line_list:
 x_train, x_test, y_train, y_test = train_test_split(text, label, test_size=0.15, random_state=0)
 
 
-nn = new NeuralNet(dt)
+nn = NeuralNet(dt)
 
 # run a model using utterances and dialogue and return the predicted dialogue class for the utterance
 def run_features(utterances, dialogue, model):
