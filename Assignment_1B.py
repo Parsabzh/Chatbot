@@ -1,8 +1,4 @@
 import Levenshtein as ls
-<<<<<<< HEAD
-
-=======
->>>>>>> dfa28ef6f9f23923231b5e163f5231dcde2d2a32
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
 import pandas as pd
 
@@ -15,10 +11,7 @@ class DialogManager:
         self.state = 'start'
         self.preferences = {}
         self.dialogue_act = None
-<<<<<<< HEAD
         # dt = create_dataframe()
-=======
->>>>>>> dfa28ef6f9f23923231b5e163f5231dcde2d2a32
         self.nn = neural_net_classifier().load_model()
         self.restaurant = None
 
@@ -43,6 +36,7 @@ class DialogManager:
 
 
 def extract_preferences(utterance):
+    
     preferences = {}
     return preferences
 
