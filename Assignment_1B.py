@@ -12,6 +12,7 @@ class DialogManager:
         print('Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?')
         self.preferences = {'area' : '', 'food' : '', 'pricerange' : ''}
         self.dialogue_act = None
+        # dt = create_dataframe()
         self.nn = neural_net_classifier().load_model()
         self.restaurant = None
         self.loop()
@@ -61,6 +62,7 @@ class DialogManager:
 
 
 def extract_preferences(utterance):
+    
     preferences = {}
 
     return preferences

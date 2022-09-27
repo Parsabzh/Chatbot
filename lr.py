@@ -34,7 +34,7 @@ labels = dt['dialogue_act_id']
 #prepare dataset
 x_train, x_test, y_train, y_test = train_test_split(features,labels, test_size=0.15, random_state=0)
 # define model and fit it
-lr = LogisticRegression(multi_class='multinomial',penalty='l1',solver='',max_iter=350)
+lr = LogisticRegression()
 lr.fit(x_train, y_train)
 predictions = lr.predict(x_test)
 score = lr.score(x_test, y_test)
