@@ -1,4 +1,3 @@
-#%%
 # load libraries
 import numpy as np
 import pandas as pd
@@ -8,27 +7,31 @@ from keras.models import Sequential
 from keras import layers
 from keras import backend as K
 from sklearn.feature_extraction.text import CountVectorizer
+import pickle
 
-#read dataset as dataframe
-df = pd.read_table("Data/dialog_acts.dat",index_col=False,names=["words"])
-label=[]
-text=[]
-#choose the column
-line_list=df.iloc[:,0]
-#create new dataframe to create new dataset for training 
-dt=pd.DataFrame(columns=['dialogue','uttr'])
-#extract the first word from string
-for line in line_list:
-    first_word= line.split()[0]
-    uttr= line.replace("{} ".format(first_word),'')
-    label.append(first_word.lower())
-    text.append(uttr.lower())
-  
-#add dialogue and utterance to new dataframe
-dt['dialogue']=label
-dt['uttr']=text
+def create_dataframe():
+    # read dataset as dataframe
+    df = pd.read_table("Data/dialog_acts.dat", index_col=False, names=["words"])
+    label = []
+    text = []
+    # choose the column
+    line_list = df.iloc[:, 0]
+    # create new dataframe to create new dataset for training
+    dt = pd.DataFrame(columns=['dialogue', 'uttr'])
+    # extract the first word from string
+    for line in line_list:
+        first_word = line.split()[0]
+        uttr = line.replace("{} ".format(first_word), '')
+        label.append(first_word.lower())
+        text.append(uttr.lower())
 
-#%%
+    # add dialogue and utterance to new dataframe
+    dt['dialogue'] = label
+    dt['uttr'] = text
+    return dt
+
+dt = create_dataframe()
+
 # change output for labels NN
 def change_label_NN(dt):
     label_NN = []
@@ -67,13 +70,15 @@ def change_label_NN(dt):
     dt['NN_label'] = label_NN
     return dt
 
-#%%
 def vectorize(dt):
     dt = change_label_NN(dt)
     #vectorize features and labels to change the text to the number
     dt['dialogue_act_id'] = dt['dialogue'].factorize()[0]
     vectorizer = CountVectorizer(min_df=5, encoding='latin-1', ngram_range=(1, 2), stop_words='english')
     features = vectorizer.fit_transform(dt['uttr']).toarray().astype(np.float32)
+    
+    pickle.dump(vectorizer, open("vector.pickel", "wb"))
+    
     labels = np.array(dt['NN_label'].tolist())
     #prepare dataset
     x_train, x_test, y_train, y_test = train_test_split(features,labels, test_size=0.15, random_state=0)
@@ -85,7 +90,6 @@ def vectorize(dt):
 
     return x_train, x_test, y_train, y_test
 
-#%%
 #add metrics
 def recall_m(y_true, y_pred):
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
@@ -111,31 +115,67 @@ def create_model(dt):
     model = Sequential()
     model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
     model.add(layers.Dense(15, activation='sigmoid'))
-    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy',f1_m,precision_m, recall_m])
-    # model.summary()
-    # train model
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     model.fit(x_train, y_train, epochs=10, verbose=True, validation_data=(x_test, y_test), batch_size=10)
-    # loss, accuracy, f1_score, precision, recall = model.evaluate(x_train, y_train, verbose=True)
-    # print("Accuracy: {:.4f}".format(accuracy))
+    model.save('NeuralNet.h5')
     return model
-
-
 
 class NeuralNet:
     def __init__(self, dt):
-        model = create_model(dt)
-        return model
+        self.load_model()
+        return
 
-    def predict(model, sentence):
-        prediction = model.predict(sentence)
-        return prediction
+    def create_NN_model(dt):
+        create_model(dt)
+        return
+    
+    def load_model(self):
+        self.model = tf.keras.models.load_model('NeuralNet.h5')
+        return
 
-model = create_model(dt)
-model.summary()
+    def predict(self, sentence):
+        sentence = [sentence]
+    
+        vectorizer = pickle.load(open("vector.pickel", "rb"))
 
-#%%
-def predict(model, sentence):
-    prediction = model.predict(sentence)
-    return prediction
-predict(model, 'I thank you')
-# %%
+        vector = vectorizer.transform(sentence)
+        
+        prediction = self.model.predict(vector, verbose=0)
+        output=[]
+        for i in prediction[0]:
+            if i>=0.5:
+                output.append(1)
+            else: 
+                output.append(0) 
+
+        if output == [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+            return 'thankyou'
+        if output == [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+            return 'ack'
+        if output == [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+            return 'affirm'
+        if output == [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+            return 'bye'
+        if output == [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+            return 'confirm'
+        if output == [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
+            return 'deny'
+        if output == [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]:
+            return 'hello'
+        if output == [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]:
+            return 'inform'
+        if output == [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]:
+            return 'negate'
+        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]:
+            return 'null'
+        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]:
+            return 'repeat'
+        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]:
+            return 'reqalts'
+        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]:
+            return 'reqmore'
+        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]:
+            return 'request'
+        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]:
+            return 'restart'
+        return 'inform'
