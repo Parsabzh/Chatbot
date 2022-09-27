@@ -1,5 +1,5 @@
 import Levenshtein as ls
-# from NN1 import NeuralNet as neural_net_classifier, create_dataframe
+from NN1 import NeuralNet as neural_net_classifier, create_dataframe
 import pandas as pd
 
 restaurant_data = pd.read_csv("Data/restaurant_info.csv")[0:]
@@ -15,7 +15,7 @@ class DialogManager:
         self.nn = neural_net_classifier(dt)
         self.restaurant = None
 
-        loop(self)
+        self.loop(self)
 
     def state_transition(self, state, utterance):
 
