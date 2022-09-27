@@ -1,5 +1,8 @@
 import Levenshtein as ls
+<<<<<<< HEAD
 
+=======
+>>>>>>> dfa28ef6f9f23923231b5e163f5231dcde2d2a32
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
 import pandas as pd
 
@@ -12,11 +15,14 @@ class DialogManager:
         self.state = 'start'
         self.preferences = {}
         self.dialogue_act = None
+<<<<<<< HEAD
         # dt = create_dataframe()
+=======
+>>>>>>> dfa28ef6f9f23923231b5e163f5231dcde2d2a32
         self.nn = neural_net_classifier().load_model()
         self.restaurant = None
 
-        loop(self)
+        self.loop()
 
     def state_transition(self, state, utterance):
 
@@ -32,7 +38,7 @@ class DialogManager:
     def loop(self):
         while self.state != 'end':
             utterance = input().lower()
-            state, dialogue_act = state_transition(state, utterance)
+            state, dialogue_act = self.state_transition(state, utterance)
             print(dialogue_act)
 
 
