@@ -12,10 +12,10 @@ class DialogManager:
         self.preferences = {}
         self.dialogue_act = None
         # dt = create_dataframe()
-        self.nn = neural_net_classifier().load_model()
+        self.nn = neural_net_classifier(dt)
         self.restaurant = None
 
-        self.loop()
+        self.loop(self)
 
     def state_transition(self, state, utterance):
 
@@ -31,7 +31,7 @@ class DialogManager:
     def loop(self):
         while self.state != 'end':
             utterance = input().lower()
-            state, dialogue_act = self.state_transition(state, utterance)
+            state, dialogue_act = state_transition(state, utterance)
             print(dialogue_act)
 
 
