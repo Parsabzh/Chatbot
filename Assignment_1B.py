@@ -14,7 +14,7 @@ class DialogManager:
         self.nn = neural_net_classifier().load_model()
         self.restaurant = None
 
-        self.loop(self)
+        self.loop()
 
     def state_transition(self, state, utterance):
 
