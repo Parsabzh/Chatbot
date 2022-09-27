@@ -121,7 +121,7 @@ def create_model(dt):
     return model
 
 class NeuralNet:
-    def __init__(self, dt):
+    def __init__(self):
         self.load_model()
         return
 
