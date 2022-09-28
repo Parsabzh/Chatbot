@@ -25,33 +25,36 @@ class DialogManager:
 
         speech_act = self.nn.predict(utterance)
 
+        # ONLY WHEN USER INPUT UTTERANCE IS INFORM OR REQUEST START COLLECTING PREFERENCES
+
         if speech_act == 'inform' or speech_act == 'request':
             self.extract_preferences(utterance)
+                
+        
+            if self.preferences['area'] != '' and self.preferences['food'] != '' and self.preferences['pricerange'] != '':
+                state = "suggest_restaurant"
+                self.restaurant = restaurant_suggestion(self.preferences)
+                rst = self.restaurant
+                dialogue_act = "is " + str(rst['restaurantname']) + 'on the' + str(rst['area']) + ' part of town' + " ok?"
+            else:
+                for key, value in self.preferences.items():
+                    if value == '':
+                        state = 'request_' + str(key)
+                        break
 
 
-        for preference, value in self.preferences.items():
-            if (value == '' and preference in ['area','food','pricerange']):
-                state = 'request_' + str(preference)
-                break
-            
-    
-        if self.preferences['area'] != '' and self.preferences['food'] != '' and self.preferences['pricerange'] != '':
-            state = "suggest_restaurant"
-            self.restaurant = restaurant_suggestion(self.preferences)
-            rst = self.restaurant
-            dialogue_act = "is " + str(rst['restaurantname']) + 'on the' + str(rst['area']) + ' part of town' + " ok?"
+            if state == 'request_area':
+                dialogue_act = 'In which area would you like to eat?'
 
+            if state == 'request_food':
+                dialogue_act = 'What kind of food would you like to eat?'
 
-        if state == 'request_area':
-            dialogue_act = 'In which area would you like to eat?'
+            if state == 'request_pricerange':
+                dialogue_act = 'What pricerange does the food have to be?'
 
-        if state == 'request_food':
-            dialogue_act = 'What kind of food would you like to eat?'
+        # WHEN USER INPUT STATES A GOODBYE UTTERANCE GO TO END STATE
 
-        if state == 'request_pricerange':
-            dialogue_act = 'What pricerange does the food have to be?'
-
-        if state == 'goodbye':
+        if speech_act == 'goodbye':
             self.state = 'end'
             dialogue_act = "Thank you for using the system. Goodbye!"
         
@@ -88,7 +91,10 @@ def extract_preferences(utterance):
                     m= lev(word,val)
                     if m<n:
                         n=m
-                        if n<4:    
+
+                        # NOW LEV SCORE SMALLER THAN 3 BUT ASSIGNMENT SMALLER OR EQUAL
+
+                        if n<3:    
                             preferences.update({key:val})         
             
     print(preferences)            
