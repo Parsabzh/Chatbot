@@ -13,23 +13,49 @@ restaurants = restaurant_data.to_dict('records')
 class DialogManager:
     def __init__(self):
         self.state = 'start'
-        self.preferences = {}
+        print('Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?')
+        self.preferences = {'area' : '', 'food' : '', 'pricerange' : ''}
         self.dialogue_act = None
         # dt = create_dataframe()
         self.nn = neural_net_classifier().load_model()
         self.restaurant = None
-
         self.loop()
 
     def state_transition(self, state, utterance):
 
-        if state == 'inform' or state == 'request':
-            extract_preferences(utterance)
+        speech_act = self.nn.predict(utterance)
 
-        dialogue_class = self.nn.predict(utterance)
+        if speech_act == 'inform' or speech_act == 'request':
+            self.extract_preferences(utterance)
+
+
+        for preference, value in self.preferences.items():
+            if (value == '' and preference in ['area','food','pricerange']):
+                state = 'request_' + str(preference)
+                break
+            
+    
+        if self.preferences['area'] != '' and self.preferences['food'] != '' and self.preferences['pricerange'] != '':
+            state = "suggest_restaurant"
+            self.restaurant = restaurant_suggestion(self.preferences)
+            rst = self.restaurant
+            dialogue_act = "is " + str(rst['restaurantname']) + 'on the' + str(rst['area']) + ' part of town' + " ok?"
+
+
+        if state == 'request_area':
+            dialogue_act = 'In which area would you like to eat?'
+
+        if state == 'request_food':
+            dialogue_act = 'What kind of food would you like to eat?'
+
+        if state == 'request_pricerange':
+            dialogue_act = 'What pricerange does the food have to be?'
+
         if state == 'goodbye':
             self.state = 'end'
             dialogue_act = "Thank you for using the system. Goodbye!"
+        
+        
         return state, dialogue_act
 
     def loop(self):
