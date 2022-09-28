@@ -1,4 +1,8 @@
+from ast import Delete
+from operator import index
+from re import M
 import Levenshtein as ls
+from Levenshtein import distance as lev
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
 import pandas as pd
 
@@ -36,11 +40,35 @@ class DialogManager:
 
 
 def extract_preferences(utterance):
+    data={"location":['west','east','south','north','center'],
+    "food":['italian','romanian','dutch','persian','american','chines','british','greece','world','swedish','international','catalan','cuban','tuscan'],
+    "condition":['busy','romantic','children','sit'],
+    "price":['cheap','expensive','moderate']}
     
+    words=utterance.split()
     preferences = {}
+    for word in words:
+        
+        for key,val_list in list(data.items()):
+           if word in val_list:
+                preferences.update({key:word})
+                del data[key]
+           if word=='any':
+                preferences.update({'location':'any'})   
+                del data['location'] 
+        n=len(word)
+        for key,val_list in data.items():
+            for val in val_list:
+                    m= lev(word,val)
+                    if m<n:
+                        n=m
+                        if n<4:    
+                            preferences.update({key:val})         
+            
+    print(preferences)            
     return preferences
 
-
+f= extract_preferences(' i want to go cheap restuarant in south part of the town')
 def restaurant_suggestion(preferences):
     scores = []
     for restaurant in restaurants:
