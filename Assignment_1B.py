@@ -27,6 +27,7 @@ class DialogManager:
         dialogue_act = None
         speech_act = self.nn.predict(utterance)
         print(speech_act)
+        
         # when user input is inform extract new preferences and suggest restaurant
         if speech_act == 'inform' or speech_act == 'request':
             self.preferences = self.preferences | extract_preferences(
@@ -118,12 +119,9 @@ def extract_preferences(utterance):
                 if m < n:
                     n = m
 
-                    # NOW LEV SCORE SMALLER THAN 3 BUT ASSIGNMENT SMALLER OR EQUAL
-
+                    # Lev score smaller than 3
                     if n < 3:
                         preferences.update({key: val})
-
-    print(preferences)
     return preferences
 
 
@@ -146,6 +144,7 @@ def restaurant_suggestion(preferences):
     _, suggestions = zip(*scores[:10]) #suggestions are the top 10 scoring restaurants
 
     inferred_suggestions = infer_preferences(suggestions, preferences)
+
     # return list with highest scoring restaurants, sorted from best to worst
     return inferred_suggestions, min_score
 
