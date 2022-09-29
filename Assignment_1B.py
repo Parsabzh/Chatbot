@@ -66,6 +66,7 @@ class DialogManager:
                 dialogue_act = 'What kind of food would you like to eat?'
             if self.state == 'request_pricerange':
                 dialogue_act = 'What pricerange does the food have to be?'
+        
         # After restaurant suggestion affirm, deny and request dialogue acts
         if self.state == 'after_suggestion':
             if speech_act == 'affirm':
@@ -87,7 +88,6 @@ class DialogManager:
             utterance = input().lower()
             dialogue_act = self.state_transition(utterance)
             print(dialogue_act)
-
 
 def extract_preferences(utterance):
     data = {"area": ['west', 'east', 'south', 'north', 'center'],
