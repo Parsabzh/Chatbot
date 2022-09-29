@@ -122,7 +122,8 @@ def create_model(dt):
 
 class NeuralNet:
     def __init__(self):
-        self.load_model()
+        # self.load_model()
+        self.model = self.load_model()
         return
 
     def create_NN_model(dt):
@@ -130,14 +131,13 @@ class NeuralNet:
         return
     
     def load_model(self):
-        self.model = tf.keras.models.load_model('NeuralNet.h5')
-        return
+        # self.model = tf.keras.models.load_model('NeuralNet.h5')
+        return tf.keras.models.load_model('NeuralNet.h5')
 
     def predict(self, sentence):
         sentence = [sentence]
-    
-        vectorizer = pickle.load(open("vector.pickel", "rb"))
 
+        vectorizer = pickle.load(open("vector.pickel", "rb"))
         vector = vectorizer.transform(sentence)
         
         prediction = self.model.predict(vector, verbose=0)

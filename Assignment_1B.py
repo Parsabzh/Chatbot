@@ -1,6 +1,6 @@
 from ast import Delete
 from operator import index
-from re import M
+from re import M, U
 import Levenshtein as ls
 from Levenshtein import distance as lev
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
@@ -18,23 +18,24 @@ class DialogManager:
         self.preferences = {'area': '', 'food': '', 'pricerange': ''}
         self.dialogue_act = None
         # dt = create_dataframe()
-        self.nn = neural_net_classifier().load_model()
+        self.nn = neural_net_classifier()
         self.restaurant = None
         self.loop()
 
-    def state_transition(self, state, utterance):
-
+    def state_transition(self, utterance):
+        dialogue_act = None
         speech_act = self.nn.predict(utterance)
-
+        print(speech_act)
         # when user input is inform extract new preferences and suggest restaurant
         if speech_act == 'inform' or speech_act == 'request':
-            self.extract_preferences(utterance)
+            self.preferences = self.preferences | extract_preferences(utterance)
+            print(self.preferences)
 
             if self.preferences['area'] != '' and self.preferences['food'] != '' and self.preferences[
                 'pricerange'] != '':
 
                 # When the preferences are know go to state suggest restaurant, it can be found or not found
-                state = "suggest_restaurant"
+                self.state = "suggest_restaurant"
                 scores, self.restaurant = restaurant_suggestion(self.preferences)
 
                 # We look at the distance score if its not zero suggest next best restaurant
@@ -56,19 +57,17 @@ class DialogManager:
                 # When some of the preferences are empty fill them in by going to the request state
                 for key, value in self.preferences.items():
                     if value == '':
-                        state = 'request_' + str(key)
+                        self.state = 'request_' + str(key)
                         break
-            
             # Request states to ask about unknown preferences
-            if state == 'request_area':
+            if self.state == 'request_area':
                 dialogue_act = 'In which area would you like to eat?'
-            if state == 'request_food':
+            if self.state == 'request_food':
                 dialogue_act = 'What kind of food would you like to eat?'
-            if state == 'request_pricerange':
+            if self.state == 'request_pricerange':
                 dialogue_act = 'What pricerange does the food have to be?'
-
         # After restaurant suggestion affirm, deny and request dialogue acts
-        if state == 'after_suggestion':
+        if self.state == 'after_suggestion':
             if speech_act == 'affirm':
                 self.state = 'end'
                 dialogue_act = "Thank you for using the system. Goodbye!"
@@ -81,21 +80,21 @@ class DialogManager:
             self.state = 'end'
             dialogue_act = "Thank you for using the system. Goodbye!"
 
-        return state, dialogue_act
+        return dialogue_act
 
     def loop(self):
         while self.state != 'end':
             utterance = input().lower()
-            state, dialogue_act = self.state_transition(state, utterance)
+            dialogue_act = self.state_transition(utterance)
             print(dialogue_act)
 
 
 def extract_preferences(utterance):
-    data = {"location": ['west', 'east', 'south', 'north', 'center'],
-            "food": ['italian', 'romanian', 'dutch', 'persian', 'american', 'chines', 'british', 'greece', 'world',
+    data = {"area": ['west', 'east', 'south', 'north', 'center'],
+            "food": ['italian', 'romanian', 'dutch', 'persian', 'american', 'chinese', 'british', 'greece', 'world',
                      'swedish', 'international', 'catalan', 'cuban', 'tuscan'],
             "condition": ['busy', 'romantic', 'children', 'sit'],
-            "price": ['cheap', 'expensive', 'moderate']}
+            "pricerange": ['cheap', 'expensive', 'moderate']}
 
     words = utterance.split()
     preferences = {}
@@ -106,8 +105,8 @@ def extract_preferences(utterance):
                 preferences.update({key: word})
                 del data[key]
             if word == 'any':
-                preferences.update({'location': 'any'})
-                del data['location']
+                preferences.update({'area': 'any'})
+                del data['area']
         n = len(word)
         for key, val_list in data.items():
             for val in val_list:
@@ -120,7 +119,7 @@ def extract_preferences(utterance):
                     if n < 3:
                         preferences.update({key: val})
 
-    # print(preferences)
+    print(preferences)
     return preferences
 
 
@@ -139,3 +138,4 @@ def restaurant_suggestion(preferences):
 
 
 # print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
+dialogue = DialogManager()
