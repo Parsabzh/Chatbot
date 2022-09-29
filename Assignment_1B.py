@@ -4,9 +4,10 @@ from re import M
 import Levenshtein as ls
 from Levenshtein import distance as lev
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
+from Assignment_1C import infer_preferences
 import pandas as pd
 
-restaurant_data = pd.read_csv("Data/restaurant_info.csv")[0:]
+restaurant_data = pd.read_csv("Data/restaurant_info.csv", sep=';')[0:]
 restaurants = restaurant_data.to_dict('records')
 
 
@@ -110,10 +111,15 @@ def restaurant_suggestion(preferences):
     for restaurant in restaurants:
         score = 0
         for preference, value in preferences.items():
+            if value == "any" or preference == 'condition':
+                continue
             distance = ls.distance(value, restaurant[preference])
             score += distance
         scores.append((score, restaurant))
-    return min(scores, key=lambda x: x[0])[1]  # return highest scoring restaurant
+    scores.sort(key= lambda x: x[0])
+    suggestions = list(map(lambda i: i[1], scores))
+    inferred_suggestions = infer_preferences(suggestions, preferences)
+    return inferred_suggestions  # return list with highest scoring restaurants, sorted from best to worst
 
 
 print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
