@@ -1,4 +1,5 @@
 # load libraries
+from typing_extensions import Self
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -139,7 +140,7 @@ class NeuralNet:
 
         vectorizer = pickle.load(open("vector.pickel", "rb"))
         vector = vectorizer.transform(sentence)
-        
+
         prediction = self.model.predict(vector, verbose=0)
         output=[]
         for i in prediction[0]:
@@ -178,4 +179,3 @@ class NeuralNet:
             return 'request'
         if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]:
             return 'restart'
-        return 'inform'
