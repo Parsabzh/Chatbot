@@ -31,22 +31,22 @@ class DialogManager:
         if speech_act == 'inform' or speech_act == 'request':
             self.preferences = self.preferences | extract_preferences(
                 utterance)
-            print(self.preferences)
 
             if self.preferences['area'] != '' and self.preferences['food'] != '' and self.preferences[
                     'pricerange'] != '':
 
                 # When the preferences are know go to state suggest restaurant, it can be found or not found
                 self.state = "suggest_restaurant"
-                scores, self.restaurant = restaurant_suggestion(
+                suggestions, min_score = restaurant_suggestion(
                     self.preferences)
+                self.restaurant = suggestions[0]
 
                 # We look at the distance score if its not zero suggest next best restaurant
-                if scores[0] != 0:
+                rst = self.restaurant
+                if min_score != 0:
                     dialogue_act = "Im sorry there is no " + self.preferences[
-                        'pricerange'] + ' ' + self.preferences['food'] + ' restaurant in ' + self.preferences['area'] + '.'
-                    rst = self.restaurant
-                    dialogue_act = "But we have an alternative. Is " + str(rst['restaurantname']) + ' on the ' + str(
+                        'pricerange'] + ' ' + self.preferences['food'] + ' restaurant on the ' + self.preferences['area'] + ' side of town.'
+                    dialogue_act += "\n But we have an alternative. Is the " + str(rst['food']) + ' restaurant "' + str(rst['restaurantname']) + '" on the ' + str(
                         rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
                     self.state = 'after_suggestion'
                 else:
@@ -137,15 +137,17 @@ def restaurant_suggestion(preferences):
         for preference, value in preferences.items():
             if value == "any" or preference == 'condition':
                 continue
-            distance = ls.distance(value, restaurant[preference])
+            distance = ls.distance(str(value), str(restaurant[preference]))
             score += distance
         scores.append((score, restaurant))
     scores.sort(key=lambda x: x[0])
-    suggestions = list(map(lambda i: i[1], scores))
+
+    min_score = scores[0][0]
+    _, suggestions = zip(*scores[:10]) #suggestions are the top 10 scoring restaurants
+
     inferred_suggestions = infer_preferences(suggestions, preferences)
     # return list with highest scoring restaurants, sorted from best to worst
-    return inferred_suggestions
+    return inferred_suggestions, min_score
 
-
-# print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
+#print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
 dialogue = DialogManager()
