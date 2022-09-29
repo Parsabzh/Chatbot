@@ -40,9 +40,9 @@ class DialogManager:
                 # We look at the distance score if its not zero suggest next best restaurant
                 if scores[0] != 0:
                     dialogue_act = "Im sorry there is no " + self.preferences[
-                    'pricerange'] + self.preferences['food'] + 'restaurant in ' + self.preferences['area'] + '.'
+                    'pricerange'] + ' ' + self.preferences['food'] + ' restaurant in ' + self.preferences['area'] + '.'
                     rst = self.restaurant
-                    dialogue_act = "But we have an alternative. Is " + str(rst['restaurantname']) + 'on the' + str(
+                    dialogue_act = "But we have an alternative. Is " + str(rst['restaurantname']) + ' on the ' + str(
                     rst['area']) + ' part of town with a '+ rst['pricerange'] + " price range ok?"
                     self.state = 'after_suggestion'
                 else:
@@ -72,6 +72,9 @@ class DialogManager:
             if speech_act == 'affirm':
                 self.state = 'end'
                 dialogue_act = "Thank you for using the system. Goodbye!"
+            if speech_act == 'deny':
+                dialogue_act = "what would you like instead?"
+                self.state = 'suggest_restaurant'
 
         # After goodbye utterance go to end state
         if speech_act == 'goodbye':
@@ -117,11 +120,11 @@ def extract_preferences(utterance):
                     if n < 3:
                         preferences.update({key: val})
 
-    print(preferences)
+    # print(preferences)
     return preferences
 
 
-f = extract_preferences(' i want to go cheap restuarant in south part of the town')
+# f = extract_preferences(' i want to go cheap restuarant in south part of the town')
 
 
 def restaurant_suggestion(preferences):
@@ -135,4 +138,4 @@ def restaurant_suggestion(preferences):
     return scores, min(scores, key=lambda x: x[0])[1]  # return highest scoring restaurant
 
 
-print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
+# print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
