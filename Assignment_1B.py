@@ -79,6 +79,11 @@ class DialogManager:
             if speech_act == 'deny':
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
+        #     if speech_act == 'request':
+        #         self.state = 'give info'
+
+        # if self.state == 'give info':
+
 
         # After goodbye utterance go to end state
         if speech_act == 'goodbye':
