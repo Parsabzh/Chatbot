@@ -1,4 +1,5 @@
 from ast import Delete
+from mimetypes import init
 from operator import index
 from re import M, U
 import Levenshtein as ls
@@ -99,22 +100,27 @@ class DialogManager:
             dialogue_act = "Thank you for using the system. Goodbye!"
 
         return dialogue_act
-
+    def init_voice(self):
+        self.voice= vc.init()
+        voices = self.voice.getProperty('voices') 
+        self.voice.setProperty('voice', voices[1].id)
     def loop(self):
-
+        self.init_voice()
+        
         while self.state != 'end':
+            
+           
             
             utterance = input().lower()
             dialogue_act = self.state_transition(utterance)
+            if self.state=='start':
+                dialogue_act='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
             if self.config['caps']:
                 dialogue_act= dialogue_act.upper()  
             if self.config['sounds']:
-                data= vc.init()
-                voices = data.getProperty('voices') 
-                data.setProperty('voice', voices[1].id)
-                data.say(dialogue_act)  
-                data.runAndWait()
-            print(dialogue_act)
+                self.voice.say(dialogue_act)  
+                self.voice.runAndWait()
+                print(dialogue_act)
 
 
 def extract_preferences(utterance):
