@@ -1,4 +1,5 @@
 from ast import Delete
+from mimetypes import init
 from operator import index
 from re import M, U
 import Levenshtein as ls
@@ -6,6 +7,8 @@ from Levenshtein import distance as lev
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
 from Assignment_1C import infer_preferences
 import pandas as pd
+from config import config
+import pyttsx3 as vc
 
 restaurant_data = pd.read_csv("Data/restaurant_info.csv", sep=';')[0:]
 restaurants = restaurant_data.to_dict('records')
@@ -13,14 +16,20 @@ restaurants = restaurant_data.to_dict('records')
 
 class DialogManager:
     def __init__(self):
+        self.config= config()
+
         self.state = 'start'
+        hello_welcome='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
+        if self.config['caps']:
+                hello_welcome= hello_welcome.upper()
         print(
-            'Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?')
+           hello_welcome)
         self.preferences = {'area': '', 'food': '', 'pricerange': ''}
         self.dialogue_act = None
         # dt = create_dataframe()
         self.nn = neural_net_classifier()
         self.restaurant = None
+        
         self.loop()
 
     def state_transition(self, utterance):
@@ -92,12 +101,27 @@ class DialogManager:
             dialogue_act = "Thank you for using the system. Goodbye!"
 
         return dialogue_act
-
+    def init_voice(self):
+        self.voice= vc.init()
+        voices = self.voice.getProperty('voices') 
+        self.voice.setProperty('voice', voices[1].id)
     def loop(self):
+        self.init_voice()
+        
         while self.state != 'end':
+            
+           
+            
             utterance = input().lower()
             dialogue_act = self.state_transition(utterance)
-            print(dialogue_act)
+            if self.state=='start':
+                dialogue_act='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
+            if self.config['caps']:
+                dialogue_act= dialogue_act.upper()  
+            if self.config['sounds']:
+                self.voice.say(dialogue_act)  
+                self.voice.runAndWait()
+                print(dialogue_act)
 
 def give_info(restaurant, utterance):
     data = {"phone": ['number', 'telephone', 'phone'],
@@ -166,3 +190,4 @@ def restaurant_suggestion(preferences):
 
 #print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
 dialogue = DialogManager()
+
