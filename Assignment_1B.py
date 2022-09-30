@@ -17,13 +17,14 @@ restaurants = restaurant_data.to_dict('records')
 class DialogManager:
     def __init__(self):
         self.config= config()
-
+        
         self.state = 'start'
-        hello_welcome='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
-        if self.config['caps']:
-                hello_welcome= hello_welcome.upper()
-        print(
-           hello_welcome)
+        
+        # hello_welcome='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
+        # if self.config['caps']:
+        #         hello_welcome= hello_welcome.upper()
+        # print(
+        #    hello_welcome)
         self.preferences = {'area': '', 'food': '', 'pricerange': ''}
         self.dialogue_act = None
         # dt = create_dataframe()
@@ -110,17 +111,16 @@ class DialogManager:
         while self.state != 'end':
             
            
-            
-            utterance = input().lower()
-            dialogue_act = self.state_transition(utterance)
             if self.state=='start':
                 dialogue_act='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
             if self.config['caps']:
                 dialogue_act= dialogue_act.upper()  
             if self.config['sounds']:
+                print(dialogue_act)
                 self.voice.say(dialogue_act)  
                 self.voice.runAndWait()
-                print(dialogue_act)
+            utterance = input().lower()
+            dialogue_act = self.state_transition(utterance)
 
 
 def extract_preferences(utterance):
