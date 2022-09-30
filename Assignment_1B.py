@@ -79,11 +79,12 @@ class DialogManager:
             if speech_act == 'deny':
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
-        #     if speech_act == 'request':
-        #         self.state = 'give info'
+            if speech_act == 'request':
+                self.state = 'give info'
 
-        # if self.state == 'give info':
-
+        # When the state is give info return asked information
+        if self.state == 'give info':
+            give_info(self.restaurant, utterance)
 
         # After goodbye utterance go to end state
         if speech_act == 'goodbye':
@@ -97,6 +98,16 @@ class DialogManager:
             utterance = input().lower()
             dialogue_act = self.state_transition(utterance)
             print(dialogue_act)
+
+def give_info(restaurant, utterance):
+    data = {"phone": ['number', 'telephone', 'phone'],
+    "addr": ['adres', 'adress', 'location'],
+    "postcode": ['postcode', 'code', 'postalcode', 'zipcode', 'post']}
+    words = utterance.split()
+    for word in words:
+        for key, val_list in list(data.items()):
+            if word in val_list:
+                print(restaurant[key])
 
 
 def extract_preferences(utterance):
