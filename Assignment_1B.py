@@ -94,6 +94,7 @@ class DialogManager:
         # When the state is give info return asked information
         if self.state == 'give info':
             give_info(self.restaurant, utterance)
+            dialogue_act = 'Do you want to know anything else?'
 
         # After goodbye utterance go to end state
         if speech_act == 'goodbye':
