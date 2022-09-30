@@ -1,4 +1,5 @@
 # load libraries
+from typing_extensions import Self
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -6,8 +7,10 @@ from sklearn.model_selection import train_test_split
 from keras.models import Sequential
 from keras import layers
 from keras import backend as K
+from keras.layers import Dropout
 from sklearn.feature_extraction.text import CountVectorizer
 import pickle
+from matplotlib import pyplot as plt
 
 def create_dataframe():
     # read dataset as dataframe
@@ -114,11 +117,35 @@ def create_model(dt):
     input_dim = x_train.shape[1]  # Number of features
     model = Sequential()
     model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+    model.add(Dropout(0.2, input_shape=(input_dim,)))
+    model.add(layers.Dense(128, input_dim=input_dim, activation='relu'))
+    # model.add(Dropout(0.2, input_shape=(input_dim,)))
+    model.add(layers.Dense(64, input_dim=input_dim, activation='relu'))
     model.add(layers.Dense(15, activation='sigmoid'))
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-    model.fit(x_train, y_train, epochs=10, verbose=True, validation_data=(x_test, y_test), batch_size=10)
+    history= model.fit(x_train, y_train, epochs=10, verbose=True, validation_data=(x_test, y_test), batch_size=10)
     model.save('NeuralNet.h5')
+    print(history.history.keys())
+    #print accuracy graph 
+    plt.plot(history.history['accuracy'])
+    plt.plot(history.history['val_accuracy'])
+    plt.title('model accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'val'], loc='upper left')
+    plt.show()
+    #plot loss graph
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'val'], loc='upper left')
+    plt.show()
+    #save model
+    
     return model
+
 
 class NeuralNet:
     def __init__(self):
@@ -139,7 +166,7 @@ class NeuralNet:
 
         vectorizer = pickle.load(open("vector.pickel", "rb"))
         vector = vectorizer.transform(sentence)
-        
+
         prediction = self.model.predict(vector, verbose=0)
         output=[]
         for i in prediction[0]:
@@ -178,4 +205,5 @@ class NeuralNet:
             return 'request'
         if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]:
             return 'restart'
-        return 'inform'
+ 
+# create_model(dt)

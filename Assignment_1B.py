@@ -1,4 +1,5 @@
 from ast import Delete
+from mimetypes import init
 from operator import index
 from re import M, U
 import Levenshtein as ls
@@ -6,6 +7,8 @@ from Levenshtein import distance as lev
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
 from Assignment_1C import infer_preferences
 import pandas as pd
+from config import config
+import pyttsx3 as vc
 
 restaurant_data = pd.read_csv("Data/restaurant_info.csv", sep=';')[0:]
 restaurants = restaurant_data.to_dict('records')
@@ -13,20 +16,27 @@ restaurants = restaurant_data.to_dict('records')
 
 class DialogManager:
     def __init__(self):
+        self.config= config()
+
         self.state = 'start'
+        hello_welcome='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
+        if self.config['caps']:
+                hello_welcome= hello_welcome.upper()
         print(
-            'Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?')
+           hello_welcome)
         self.preferences = {'area': '', 'food': '', 'pricerange': ''}
         self.dialogue_act = None
         # dt = create_dataframe()
         self.nn = neural_net_classifier()
         self.restaurant = None
+        
         self.loop()
 
     def state_transition(self, utterance):
         dialogue_act = None
         speech_act = self.nn.predict(utterance)
         print(speech_act)
+        
         # when user input is inform extract new preferences and suggest restaurant
         if speech_act == 'inform' or speech_act == 'request':
             self.preferences = self.preferences | extract_preferences(
@@ -78,6 +88,12 @@ class DialogManager:
             if speech_act == 'deny':
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
+            if speech_act == 'request':
+                self.state = 'give info'
+
+        # When the state is give info return asked information
+        if self.state == 'give info':
+            give_info(self.restaurant, utterance)
 
         # After goodbye utterance go to end state
         if speech_act == 'goodbye':
@@ -85,12 +101,37 @@ class DialogManager:
             dialogue_act = "Thank you for using the system. Goodbye!"
 
         return dialogue_act
-
+    def init_voice(self):
+        self.voice= vc.init()
+        voices = self.voice.getProperty('voices') 
+        self.voice.setProperty('voice', voices[1].id)
     def loop(self):
+        self.init_voice()
+        
         while self.state != 'end':
+            
+           
+            
             utterance = input().lower()
             dialogue_act = self.state_transition(utterance)
-            print(dialogue_act)
+            if self.state=='start':
+                dialogue_act='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
+            if self.config['caps']:
+                dialogue_act= dialogue_act.upper()  
+            if self.config['sounds']:
+                self.voice.say(dialogue_act)  
+                self.voice.runAndWait()
+                print(dialogue_act)
+
+def give_info(restaurant, utterance):
+    data = {"phone": ['number', 'telephone', 'phone'],
+    "addr": ['adres', 'adress', 'location'],
+    "postcode": ['postcode', 'code', 'postalcode', 'zipcode', 'post']}
+    words = utterance.split()
+    for word in words:
+        for key, val_list in list(data.items()):
+            if word in val_list:
+                print(restaurant[key])
 
 
 def extract_preferences(utterance):
@@ -118,12 +159,9 @@ def extract_preferences(utterance):
                 if m < n:
                     n = m
 
-                    # NOW LEV SCORE SMALLER THAN 3 BUT ASSIGNMENT SMALLER OR EQUAL
-
+                    # Lev score smaller than 3
                     if n < 3:
                         preferences.update({key: val})
-
-    print(preferences)
     return preferences
 
 
@@ -146,8 +184,10 @@ def restaurant_suggestion(preferences):
     _, suggestions = zip(*scores[:10]) #suggestions are the top 10 scoring restaurants
 
     inferred_suggestions = infer_preferences(suggestions, preferences)
+
     # return list with highest scoring restaurants, sorted from best to worst
     return inferred_suggestions, min_score
 
 #print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
 dialogue = DialogManager()
+
