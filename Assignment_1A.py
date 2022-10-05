@@ -45,7 +45,7 @@ def run_features(utterances, dialogue, model):
 
 # print the accuracy, precision, recall, and f1 score for the predicted dialogue classes and plot a confusion matrix
 def calculate_metrics(predictions, dialogue):
-    disp = ConfusionMatrixDisplay.from_predictions(dialogue, predictions)
+    disp = ConfusionMatrixDisplay.from_predictions(dialogue, predictions, xticks_rotation='vertical')
     acc = accuracy_score(dialogue, predictions)
     recall = recall_score(dialogue, predictions, average='weighted')
     precision = precision_score(dialogue, predictions, average='micro')
