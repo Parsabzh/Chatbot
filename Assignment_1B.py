@@ -1,4 +1,5 @@
 from ast import Delete
+from asyncio.windows_events import NULL
 from mimetypes import init
 from operator import index
 from re import M, U
@@ -41,7 +42,7 @@ class DialogManager:
         # when user input is inform extract new preferences and suggest restaurant
         if speech_act == 'inform' or speech_act == 'request':
             self.preferences = self.preferences | extract_preferences(
-                utterance)
+                utterance,self.state)
 
             if self.preferences['area'] != '' and self.preferences['food'] != '' and self.preferences[
                     'pricerange'] != '':
@@ -135,7 +136,7 @@ def give_info(restaurant, utterance):
                 print(restaurant[key])
 
 
-def extract_preferences(utterance):
+def extract_preferences(utterance,state):
     data = {"area": ['west', 'east', 'south', 'north', 'center'],
             "food": ['italian', 'romanian', 'dutch', 'persian', 'american', 'chinese', 'british', 'greece', 'world',
                      'swedish', 'international', 'catalan', 'cuban', 'tuscan'],
@@ -151,7 +152,17 @@ def extract_preferences(utterance):
                 preferences.update({key: word})
                 del data[key]
             if word == 'any':
-                preferences.update({'area': 'any'})
+                match state:
+                    case "request_area":
+                        preferences.update({'area': 'any'})
+                    case "request_food":
+                        preferences.update({'food': 'any'})
+                    case "request_price":
+                        preferences.update({'pricerange': 'any'})
+                    case "inform":
+                        for key in preferences:
+                            if preferences[key]=="":
+                               preferences.update({preferences,'any'}) 
                 del data['area']
         n = len(word)
         for key, val_list in data.items():
