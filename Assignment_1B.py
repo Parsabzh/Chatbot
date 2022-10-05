@@ -105,9 +105,12 @@ class DialogManager:
         # After goodbye utterance go to end state
         if speech_act == 'bye':
             self.state = 'end'
-            dialogue_act = "Thank you for using the system. Goodbye!"
-
+            
+        if self.state == 'end':
+            print("Thank you for using the system. Goodbye!")
+        print(self.state)
         return dialogue_act
+
     def init_voice(self):
         self.voice= vc.init()
         voices = self.voice.getProperty('voices') 
