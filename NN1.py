@@ -11,6 +11,8 @@ from keras.layers import Dropout
 from sklearn.feature_extraction.text import CountVectorizer
 import pickle
 from matplotlib import pyplot as plt
+from sklearn.metrics import precision_score, recall_score, f1_score
+
 
 def create_dataframe():
     # read dataset as dataframe
@@ -73,21 +75,25 @@ def vectorize(dt):
 
 #add metrics
 def recall_m(y_true, y_pred):
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-    recall = true_positives / (possible_positives + K.epsilon())
+    # true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    # possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    # recall = true_positives / (possible_positives + K.epsilon())
+    recall= recall_score(y_true,y_pred)
     return recall
 
 def precision_m(y_true, y_pred):
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-    precision = true_positives / (predicted_positives + K.epsilon())
+    # true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    # predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    # precision = true_positives / (predicted_positives + K.epsilon())
+    precision=precision_score(y_true,y_pred)
     return precision
 
 def f1_m(y_true, y_pred):
-    precision = precision_m(y_true, y_pred)
-    recall = recall_m(y_true, y_pred)
-    return 2*((precision*recall)/(precision+recall+K.epsilon()))
+    # precision = precision_m(y_true, y_pred)
+    # recall = recall_m(y_true, y_pred)
+    # return 2*((precision*recall)/(precision+recall+K.epsilon()))
+    f1=f1_score(y_true,y_pred)
+    return f1
 
 #create model
 def create_model(dt):
