@@ -141,8 +141,6 @@ class NeuralNet:
 
     def predict(self, sentence):
         sentence = [sentence]
-        if 'no' in sentence:
-            return 'deny'
         vectorizer = pickle.load(open("vector.pickel", "rb"))
         vector = vectorizer.transform(sentence)
         prediction = self.model.predict(vector, verbose=0)

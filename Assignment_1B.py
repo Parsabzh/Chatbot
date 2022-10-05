@@ -62,13 +62,13 @@ class DialogManager:
                 if min_score != 0:
                     dialogue_act = "Im sorry there is no " + self.preferences[
                         'pricerange'] + ' ' + self.preferences['food'] + ' restaurant on the ' + self.preferences['area'] + ' side of town.'
-                    dialogue_act += "\n But we have an alternative. Is the " + str(rst['food']) + ' restaurant "' + str(rst['restaurantname']) + '" on the ' + str(
+                    dialogue_act += "\n But we have an alternative. Is the " + str(rst['food']) + ' restaurant \"' + str(rst['restaurantname']) + '\" on the ' + str(
                         rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
                     self.state = 'after_suggestion'
                 else:
 
                     # Give perfect match
-                    dialogue_act = "Is " + str(rst['restaurantname']) + 'on the' + str(
+                    dialogue_act = "Is " + str(rst['restaurantname']) + ' on the ' + str(
                         rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
                     self.state = 'after_suggestion'
             else:
@@ -91,7 +91,7 @@ class DialogManager:
             if speech_act == 'affirm':
                 self.state = 'end'
                 dialogue_act = 'Thank you for using the system. Goodbye!'
-            if speech_act == 'deny':
+            if speech_act in ['deny', 'negate', 'reqalts']:
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
             if speech_act == 'request':
