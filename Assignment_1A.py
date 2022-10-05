@@ -58,13 +58,13 @@ def calculate_metrics(predictions, dialogue):
 baseline_predictions = run_features(x_test, y_test, baseline_classification2)
 calculate_metrics(baseline_predictions, y_test)
 
-print('Baseline2 precision: ' + precision_m(y_test, baseline_predictions))
-print('Baseline2 recall: ' + recall_m(y_test, baseline_predictions))
-print('Baseline2 F1: ' + f1_m(y_test, baseline_predictions))
+# print('Baseline2 precision: ' + precision_m(y_test, baseline_predictions))
+# print('Baseline2 recall: ' + recall_m(y_test, baseline_predictions))
+# print('Baseline2 F1: ' + f1_m(y_test, baseline_predictions))
 
 nn_predictions = run_features(x_test, y_test, nn.predict)
 calculate_metrics(nn_predictions, y_test)
 
-print('NN precision: ' + precision_m(y_test, nn_predictions))
-print('NN recall: ' + recall_m(y_test, nn_predictions))
-print('NN F1: ' + f1_m(y_test, nn_predictions))
+# print('NN precision: ' + precision_m(y_test, nn_predictions))
+# print('NN recall: ' + recall_m(y_test, nn_predictions))
+# print('NN F1: ' + f1_m(y_test, nn_predictions))
