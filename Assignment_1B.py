@@ -1,3 +1,5 @@
+import os 
+import tensorflow as tf
 from ast import Delete
 from asyncio.windows_events import NULL
 from mimetypes import init
@@ -10,6 +12,8 @@ from Assignment_1C import infer_preferences
 import pandas as pd
 from config import config
 import pyttsx3 as vc
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 restaurant_data = pd.read_csv("Data/restaurant_info.csv", sep=';')[0:]
 restaurants = restaurant_data.to_dict('records')
@@ -86,7 +90,7 @@ class DialogManager:
         if self.state == 'after_suggestion':
             if speech_act == 'affirm':
                 self.state = 'end'
-                dialogue_act = "Thank you for using the system. Goodbye!"
+                dialogue_act = 'Thank you for using the system. Goodbye!'
             if speech_act == 'deny':
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
