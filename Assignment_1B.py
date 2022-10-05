@@ -40,7 +40,7 @@ class DialogManager:
         print(speech_act)
         
         # when user input is inform extract new preferences and suggest restaurant
-        if speech_act == 'inform' or speech_act == 'request':
+        if speech_act == 'inform' or speech_act == 'request' or utterance=='any':
             self.preferences = self.preferences | extract_preferences(
                 utterance,self.state)
 
@@ -113,7 +113,7 @@ class DialogManager:
         
         while self.state != 'end':
             
-           
+
             if self.state=='start':
                 dialogue_act='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
             if self.config['caps']:
@@ -137,11 +137,13 @@ def give_info(restaurant, utterance):
 
 
 def extract_preferences(utterance,state):
-    data = {"area": ['west', 'east', 'south', 'north', 'center'],
-            "food": ['italian', 'romanian', 'dutch', 'persian', 'american', 'chinese', 'british', 'greece', 'world',
-                     'swedish', 'international', 'catalan', 'cuban', 'tuscan'],
+    data = {"area": restaurant_data['area'].dropna().unique().tolist(),
+            "food":restaurant_data['food'].dropna().unique().tolist(),
             "condition": ['busy', 'romantic', 'children', 'sit'],
-            "pricerange": ['cheap', 'expensive', 'moderate']}
+            "pricerange": restaurant_data['pricerange'].dropna().unique().tolist(),
+            "foodquality":restaurant_data['foodquality'].dropna().unique().tolist(),
+            "crowdedness":restaurant_data['crowdedness'].dropna().unique().tolist(),
+            "lengthofstay":restaurant_data['lengthofstay'].dropna().unique().tolist()}
 
     words = utterance.split()
     preferences = {}

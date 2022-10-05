@@ -149,4 +149,4 @@ class NeuralNet:
         index = np.argmax(prediction[0], axis=0)
         return classifiers[index]
  
-create_model(dt)
+# create_model(dt)
