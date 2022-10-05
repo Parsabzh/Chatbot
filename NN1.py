@@ -38,37 +38,15 @@ dt = create_dataframe()
 # change output for labels NN
 def change_label_NN(dt):
     label_NN = []
+    classifiers = ['thankyou', 'ack', 'affirm', 'bye', 'confirm', 'deny',
+     'hello', 'inform', 'negate', 'null', 'repeat', 'reqalts', 'request', 'restart']
+
     for i in dt['dialogue']:
-        if i == 'thankyou':
-            label_NN.append(np.asarray([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'ack':
-            label_NN.append(np.asarray([0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'affirm':
-            label_NN.append(np.asarray([0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'bye':
-            label_NN.append(np.asarray([0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'confirm':
-            label_NN.append(np.asarray([0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'deny':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'hello':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'inform':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'negate':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'null':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'repeat':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]).astype(np.float32))
-        if i == 'reqalts':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]).astype(np.float32))
-        if i == 'reqmore':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]).astype(np.float32))
-        if i == 'request':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]).astype(np.float32))
-        if i == 'restart':
-            label_NN.append(np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]).astype(np.float32))
+        array = np.zeros(15)
+        for j in range(len(classifiers)):
+            if i == classifiers[j]:
+                np.put(array, j, 1)
+        label_NN.append(np.asarray(array).astype(np.float32))
 
     dt['NN_label'] = label_NN
     return dt
@@ -124,6 +102,7 @@ def create_model(dt):
     model.add(layers.Dense(15, activation='sigmoid'))
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     history= model.fit(x_train, y_train, epochs=10, verbose=True, validation_data=(x_test, y_test), batch_size=10)
+    #save model
     model.save('NeuralNet.h5')
     print(history.history.keys())
     #print accuracy graph 
@@ -142,7 +121,6 @@ def create_model(dt):
     plt.xlabel('epoch')
     plt.legend(['train', 'val'], loc='upper left')
     plt.show()
-    #save model
     
     return model
 
@@ -163,47 +141,12 @@ class NeuralNet:
 
     def predict(self, sentence):
         sentence = [sentence]
-
         vectorizer = pickle.load(open("vector.pickel", "rb"))
         vector = vectorizer.transform(sentence)
-
         prediction = self.model.predict(vector, verbose=0)
-        output=[]
-        for i in prediction[0]:
-            if i>=0.5:
-                output.append(1)
-            else: 
-                output.append(0) 
-
-        if output == [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
-            return 'thankyou'
-        if output == [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
-            return 'ack'
-        if output == [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
-            return 'affirm'
-        if output == [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
-            return 'bye'
-        if output == [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
-            return 'confirm'
-        if output == [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]:
-            return 'deny'
-        if output == [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]:
-            return 'hello'
-        if output == [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]:
-            return 'inform'
-        if output == [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]:
-            return 'negate'
-        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]:
-            return 'null'
-        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]:
-            return 'repeat'
-        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]:
-            return 'reqalts'
-        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]:
-            return 'reqmore'
-        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]:
-            return 'request'
-        if output == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]:
-            return 'restart'
+        classifiers = ['thankyou', 'ack', 'affirm', 'bye', 'confirm', 'deny',
+         'hello', 'inform', 'negate', 'null', 'repeat', 'reqalts', 'request', 'restart']
+        index = np.argmax(prediction[0], axis=0)
+        return classifiers[index]
  
-# create_model(dt)
+create_model(dt)

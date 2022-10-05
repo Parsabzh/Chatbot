@@ -1,4 +1,5 @@
 from ast import Delete
+from asyncio.windows_events import NULL
 from mimetypes import init
 from operator import index
 from re import M, U
@@ -17,13 +18,14 @@ restaurants = restaurant_data.to_dict('records')
 class DialogManager:
     def __init__(self):
         self.config= config()
-
+        
         self.state = 'start'
-        hello_welcome='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
-        if self.config['caps']:
-                hello_welcome= hello_welcome.upper()
-        print(
-           hello_welcome)
+        
+        # hello_welcome='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
+        # if self.config['caps']:
+        #         hello_welcome= hello_welcome.upper()
+        # print(
+        #    hello_welcome)
         self.preferences = {'area': '', 'food': '', 'pricerange': ''}
         self.dialogue_act = None
         # dt = create_dataframe()
@@ -40,7 +42,7 @@ class DialogManager:
         # when user input is inform extract new preferences and suggest restaurant
         if speech_act == 'inform' or speech_act == 'request':
             self.preferences = self.preferences | extract_preferences(
-                utterance)
+                utterance,self.state)
 
             if self.preferences['area'] != '' and self.preferences['food'] != '' and self.preferences[
                     'pricerange'] != '':
@@ -94,6 +96,7 @@ class DialogManager:
         # When the state is give info return asked information
         if self.state == 'give info':
             give_info(self.restaurant, utterance)
+            dialogue_act = 'Do you want to know anything else?'
 
         # After goodbye utterance go to end state
         if speech_act == 'goodbye':
@@ -111,17 +114,16 @@ class DialogManager:
         while self.state != 'end':
             
            
-            
-            utterance = input().lower()
-            dialogue_act = self.state_transition(utterance)
             if self.state=='start':
                 dialogue_act='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
             if self.config['caps']:
                 dialogue_act= dialogue_act.upper()  
             if self.config['sounds']:
+                print(dialogue_act)
                 self.voice.say(dialogue_act)  
                 self.voice.runAndWait()
-                print(dialogue_act)
+            utterance = input().lower()
+            dialogue_act = self.state_transition(utterance)
 
 def give_info(restaurant, utterance):
     data = {"phone": ['number', 'telephone', 'phone'],
@@ -134,7 +136,7 @@ def give_info(restaurant, utterance):
                 print(restaurant[key])
 
 
-def extract_preferences(utterance):
+def extract_preferences(utterance,state):
     data = {"area": ['west', 'east', 'south', 'north', 'center'],
             "food": ['italian', 'romanian', 'dutch', 'persian', 'american', 'chinese', 'british', 'greece', 'world',
                      'swedish', 'international', 'catalan', 'cuban', 'tuscan'],
@@ -150,7 +152,17 @@ def extract_preferences(utterance):
                 preferences.update({key: word})
                 del data[key]
             if word == 'any':
-                preferences.update({'area': 'any'})
+                match state:
+                    case "request_area":
+                        preferences.update({'area': 'any'})
+                    case "request_food":
+                        preferences.update({'food': 'any'})
+                    case "request_price":
+                        preferences.update({'pricerange': 'any'})
+                    case "inform":
+                        for key in preferences:
+                            if preferences[key]=="":
+                               preferences.update({preferences,'any'}) 
                 del data['area']
         n = len(word)
         for key, val_list in data.items():

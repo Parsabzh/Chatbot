@@ -29,7 +29,7 @@ for line in line_list:
 x_train, x_test, y_train, y_test = train_test_split(text, label, test_size=0.15, random_state=0)
 
 
-nn = NeuralNet(dt)
+nn = NeuralNet()
 
 # run a model using utterances and dialogue and return the predicted dialogue class for the utterance
 def run_features(utterances, dialogue, model):
@@ -52,10 +52,10 @@ def calculate_metrics(predictions, dialogue):
     f1 = f1_score(dialogue, predictions, average='weighted')
     print("Accuracy: " + str(acc) + " ,F1: " + str(f1), " ,Recall: " + str(recall), " ,Precision: " + str(precision))
     plt.show()
+    print(disp)
 
 
 # baseline_predictions = run_features(x_test, y_test, baseline_classification2)
 nn_predictions = run_features(x_test, y_test, nn.predict)
-print(nn_predictions)
-
+# print(nn_predictions)
 calculate_metrics(nn_predictions, y_test)
