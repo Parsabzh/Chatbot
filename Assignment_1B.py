@@ -103,7 +103,7 @@ class DialogManager:
             dialogue_act = 'Do you want to know anything else?'
 
         # After goodbye utterance go to end state
-        if speech_act == 'goodbye':
+        if speech_act == 'bye':
             self.state = 'end'
             dialogue_act = "Thank you for using the system. Goodbye!"
 
