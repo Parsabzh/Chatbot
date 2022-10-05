@@ -1,3 +1,5 @@
+import os 
+import tensorflow as tf
 from ast import Delete
 from asyncio.windows_events import NULL
 from mimetypes import init
@@ -10,6 +12,8 @@ from Assignment_1C import infer_preferences
 import pandas as pd
 from config import config
 import pyttsx3 as vc
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 restaurant_data = pd.read_csv("Data/restaurant_info.csv", sep=';')[0:]
 restaurants = restaurant_data.to_dict('records')
@@ -58,13 +62,13 @@ class DialogManager:
                 if min_score != 0:
                     dialogue_act = "Im sorry there is no " + self.preferences[
                         'pricerange'] + ' ' + self.preferences['food'] + ' restaurant on the ' + self.preferences['area'] + ' side of town.'
-                    dialogue_act += "\n But we have an alternative. Is the " + str(rst['food']) + ' restaurant "' + str(rst['restaurantname']) + '" on the ' + str(
+                    dialogue_act += "\n But we have an alternative. Is the " + str(rst['food']) + ' restaurant \"' + str(rst['restaurantname']) + '\" on the ' + str(
                         rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
                     self.state = 'after_suggestion'
                 else:
 
                     # Give perfect match
-                    dialogue_act = "Is " + str(rst['restaurantname']) + 'on the' + str(
+                    dialogue_act = "Is " + str(rst['restaurantname']) + ' on the ' + str(
                         rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
                     self.state = 'after_suggestion'
             else:
@@ -86,8 +90,8 @@ class DialogManager:
         if self.state == 'after_suggestion':
             if speech_act == 'affirm':
                 self.state = 'end'
-                dialogue_act = "Thank you for using the system. Goodbye!"
-            if speech_act == 'deny':
+                dialogue_act = 'Thank you for using the system. Goodbye!'
+            if speech_act in ['deny', 'negate', 'reqalts']:
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
             if speech_act == 'request':
@@ -99,11 +103,14 @@ class DialogManager:
             dialogue_act = 'Do you want to know anything else?'
 
         # After goodbye utterance go to end state
-        if speech_act == 'goodbye':
+        if speech_act == 'bye':
             self.state = 'end'
-            dialogue_act = "Thank you for using the system. Goodbye!"
-
+            
+        if self.state == 'end':
+            print("Thank you for using the system. Goodbye!")
+        print(self.state)
         return dialogue_act
+
     def init_voice(self):
         self.voice= vc.init()
         voices = self.voice.getProperty('voices') 
@@ -197,9 +204,9 @@ def restaurant_suggestion(preferences):
     min_score = scores[0][0]
     _, suggestions = zip(*scores[:10]) #suggestions are the top 10 scoring restaurants
 
-    inferred_suggestions = infer_preferences(suggestions, preferences)
+    inferred_suggestions = infer_preferences(list(suggestions), preferences)
 
-    # return list with highest scoring restaurants, sorted from best to worst
+    # return list with the highest scoring restaurants, sorted from best to worst
     return inferred_suggestions, min_score
 
 #print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))

@@ -101,7 +101,7 @@ def create_model(dt):
     model.add(layers.Dense(64, input_dim=input_dim, activation='relu'))
     model.add(layers.Dense(15, activation='sigmoid'))
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-    history= model.fit(x_train, y_train, epochs=10, verbose=True, validation_data=(x_test, y_test), batch_size=10)
+    history= model.fit(x_train, y_train, epochs=100, verbose=True, validation_data=(x_test, y_test), batch_size=10)
     #save model
     model.save('NeuralNet.h5')
     print(history.history.keys())
@@ -148,5 +148,3 @@ class NeuralNet:
          'hello', 'inform', 'negate', 'null', 'repeat', 'reqalts', 'request', 'restart']
         index = np.argmax(prediction[0], axis=0)
         return classifiers[index]
- 
-# create_model(dt)
