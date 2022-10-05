@@ -1,4 +1,5 @@
 from ast import Delete
+from asyncio.windows_events import NULL
 from mimetypes import init
 from operator import index
 from re import M, U
@@ -41,7 +42,7 @@ class DialogManager:
         # when user input is inform extract new preferences and suggest restaurant
         if speech_act == 'inform' or speech_act == 'request':
             self.preferences = self.preferences | extract_preferences(
-                utterance)
+                utterance,self.state)
 
             if self.preferences['area'] != '' and self.preferences['food'] != '' and self.preferences[
                     'pricerange'] != '':
@@ -135,11 +136,11 @@ def give_info(restaurant, utterance):
                 print(restaurant[key])
 
 
-def extract_preferences(utterance):
+def extract_preferences(utterance,state):
     data = {"area": ['west', 'east', 'south', 'north', 'center'],
             "food": ['italian', 'romanian', 'dutch', 'persian', 'american', 'chinese', 'british', 'greece', 'world',
                      'swedish', 'international', 'catalan', 'cuban', 'tuscan'],
-            "condition": ['busy', 'romantic', 'children', 'sit'],
+            "condition": ['touristic', 'romantic', 'children', 'sit'],
             "pricerange": ['cheap', 'expensive', 'moderate']}
 
     words = utterance.split()
@@ -151,7 +152,17 @@ def extract_preferences(utterance):
                 preferences.update({key: word})
                 del data[key]
             if word == 'any':
-                preferences.update({'area': 'any'})
+                match state:
+                    case "request_area":
+                        preferences.update({'area': 'any'})
+                    case "request_food":
+                        preferences.update({'food': 'any'})
+                    case "request_price":
+                        preferences.update({'pricerange': 'any'})
+                    case "inform":
+                        for key in preferences:
+                            if preferences[key]=="":
+                               preferences.update({preferences,'any'}) 
                 del data['area']
         n = len(word)
         for key, val_list in data.items():
@@ -184,9 +195,9 @@ def restaurant_suggestion(preferences):
     min_score = scores[0][0]
     _, suggestions = zip(*scores[:10]) #suggestions are the top 10 scoring restaurants
 
-    inferred_suggestions = infer_preferences(suggestions, preferences)
+    inferred_suggestions = infer_preferences(list(suggestions), preferences)
 
-    # return list with highest scoring restaurants, sorted from best to worst
+    # return list with the highest scoring restaurants, sorted from best to worst
     return inferred_suggestions, min_score
 
 #print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
