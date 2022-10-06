@@ -41,7 +41,7 @@ dt = create_dataframe()
 def change_label_NN(dt):
     label_NN = []
     classifiers = ['thankyou', 'ack', 'affirm', 'bye', 'confirm', 'deny',
-     'hello', 'inform', 'negate', 'null', 'repeat', 'reqalts', 'request', 'restart']
+     'hello', 'inform', 'negate', 'null', 'repeat', 'reqalts', 'reqmore', 'request', 'restart']
 
     for i in dt['dialogue']:
         array = np.zeros(15)
@@ -151,6 +151,6 @@ class NeuralNet:
         vector = vectorizer.transform(sentence)
         prediction = self.model.predict(vector, verbose=0)
         classifiers = ['thankyou', 'ack', 'affirm', 'bye', 'confirm', 'deny',
-         'hello', 'inform', 'negate', 'null', 'repeat', 'reqalts', 'request', 'restart']
+         'hello', 'inform', 'negate', 'null', 'repeat', 'reqalts', 'reqmore', 'request', 'restart']
         index = np.argmax(prediction[0], axis=0)
         return classifiers[index]
