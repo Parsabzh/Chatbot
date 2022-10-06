@@ -11,7 +11,6 @@ from keras.layers import Dropout
 from sklearn.feature_extraction.text import CountVectorizer
 import pickle
 from matplotlib import pyplot as plt
-from sklearn.metrics import precision_score, recall_score, f1_score
 
 
 def create_dataframe():
@@ -73,28 +72,6 @@ def vectorize(dt):
 
     return x_train, x_test, y_train, y_test
 
-#add metrics
-def recall_m(y_true, y_pred):
-    # true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    # possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-    # recall = true_positives / (possible_positives + K.epsilon())
-    recall= recall_score(y_true,y_pred)
-    return recall
-
-def precision_m(y_true, y_pred):
-    # true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    # predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-    # precision = true_positives / (predicted_positives + K.epsilon())
-    precision=precision_score(y_true,y_pred,)
-    return precision
-
-def f1_m(y_true, y_pred):
-    # precision = precision_m(y_true, y_pred)
-    # recall = recall_m(y_true, y_pred)
-    # return 2*((precision*recall)/(precision+recall+K.epsilon()))
-    f1=f1_score(y_true,y_pred)
-    return f1
-
 #create model
 def create_model(dt):
     x_train, x_test, y_train, y_test = vectorize(dt)
@@ -107,7 +84,7 @@ def create_model(dt):
     model.add(layers.Dense(64, input_dim=input_dim, activation='relu'))
     model.add(layers.Dense(15, activation='sigmoid'))
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-    history= model.fit(x_train, y_train, epochs=100, verbose=True, validation_data=(x_test, y_test), batch_size=10)
+    history= model.fit(x_train, y_train, epochs=20, verbose=True, validation_data=(x_test, y_test), batch_size=10)
     #save model
     model.save('NeuralNet.h5')
     print(history.history.keys())
@@ -129,7 +106,6 @@ def create_model(dt):
     plt.show()
     
     return model
-
 
 class NeuralNet:
     def __init__(self):
