@@ -48,7 +48,7 @@ def calculate_metrics(predictions, dialogue):
     disp = ConfusionMatrixDisplay.from_predictions(dialogue, predictions, xticks_rotation='vertical')
     acc = accuracy_score(dialogue, predictions)
     recall = recall_score(dialogue, predictions, average='weighted')
-    precision = precision_score(dialogue, predictions, average='micro')
+    precision = precision_score(dialogue, predictions, average='weighted')
     f1 = f1_score(dialogue, predictions, average='weighted')
     print("Accuracy: " + str(acc) + " ,F1: " + str(f1), " ,Recall: " + str(recall), " ,Precision: " + str(precision))
     plt.show()
