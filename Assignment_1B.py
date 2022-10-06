@@ -44,7 +44,7 @@ class DialogManager:
         print(speech_act)
         
         # when user input is inform extract new preferences and suggest restaurant
-        if speech_act == 'inform' or speech_act == 'request':
+        if speech_act == 'inform' or speech_act == 'request' or utterance=='any':
             self.preferences = self.preferences | extract_preferences(
                 utterance,self.state)
 
@@ -62,13 +62,13 @@ class DialogManager:
                 if min_score != 0:
                     dialogue_act = "Im sorry there is no " + self.preferences[
                         'pricerange'] + ' ' + self.preferences['food'] + ' restaurant on the ' + self.preferences['area'] + ' side of town.'
-                    dialogue_act += "\n But we have an alternative. Is the " + str(rst['food']) + ' restaurant "' + str(rst['restaurantname']) + '" on the ' + str(
+                    dialogue_act += "\n But we have an alternative. Is the " + str(rst['food']) + ' restaurant \"' + str(rst['restaurantname']) + '\" on the ' + str(
                         rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
                     self.state = 'after_suggestion'
                 else:
 
                     # Give perfect match
-                    dialogue_act = "Is " + str(rst['restaurantname']) + 'on the' + str(
+                    dialogue_act = "Is " + str(rst['restaurantname']) + ' on the ' + str(
                         rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
                     self.state = 'after_suggestion'
             else:
@@ -91,7 +91,7 @@ class DialogManager:
             if speech_act == 'affirm':
                 self.state = 'end'
                 dialogue_act = 'Thank you for using the system. Goodbye!'
-            if speech_act == 'deny':
+            if speech_act in ['deny', 'negate', 'reqalts']:
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
             if speech_act == 'request':
@@ -120,7 +120,7 @@ class DialogManager:
         
         while self.state != 'end':
             
-           
+
             if self.state=='start':
                 dialogue_act='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
             if self.config['caps']:
@@ -144,11 +144,13 @@ def give_info(restaurant, utterance):
 
 
 def extract_preferences(utterance,state):
-    data = {"area": ['west', 'east', 'south', 'north', 'center'],
-            "food": ['italian', 'romanian', 'dutch', 'persian', 'american', 'chinese', 'british', 'greece', 'world',
-                     'swedish', 'international', 'catalan', 'cuban', 'tuscan'],
-            "condition": ['touristic', 'romantic', 'children', 'sit'],
-            "pricerange": ['cheap', 'expensive', 'moderate']}
+    data = {"area": restaurant_data['area'].dropna().unique().tolist(),
+            "food":restaurant_data['food'].dropna().unique().tolist(),
+            "condition": ['busy', 'romantic', 'children', 'sit'],
+            "pricerange": restaurant_data['pricerange'].dropna().unique().tolist(),
+            "foodquality":restaurant_data['foodquality'].dropna().unique().tolist(),
+            "crowdedness":restaurant_data['crowdedness'].dropna().unique().tolist(),
+            "lengthofstay":restaurant_data['lengthofstay'].dropna().unique().tolist()}
 
     words = utterance.split()
     preferences = {}
