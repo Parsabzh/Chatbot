@@ -9,6 +9,7 @@ from sklearn.metrics import ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 from baselines import baseline_classification2
 from NN1 import NeuralNet
+from lr import predict_lr
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -61,6 +62,8 @@ def calculate_metrics(predictions, dialogue):
 baseline_predictions = run_features(x_test, y_test, baseline_classification2)
 calculate_metrics(baseline_predictions, y_test)
 
+lr_predictions = predict_lr(x_test, y_test)
+calculate_metrics(lr_predictions, y_test)
 
 nn_predictions = run_features(x_test, y_test, nn.predict)
 calculate_metrics(nn_predictions, y_test)
