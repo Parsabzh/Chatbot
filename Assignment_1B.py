@@ -10,8 +10,7 @@ from Levenshtein import distance as lev
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
 from Assignment_1C import infer_preferences
 import pandas as pd
-from config import config
-import pyttsx3 as vc
+import sys
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -21,8 +20,7 @@ restaurants = restaurant_data.to_dict('records')
 
 class DialogManager:
     def __init__(self):
-        self.config= config()
-        
+
         self.state = 'start'
         
         # hello_welcome='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
@@ -119,14 +117,12 @@ class DialogManager:
         self.init_voice()
         
         while self.state != 'end':
-            
-
             if self.state=='start':
                 dialogue_act='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
-            if self.config['caps']:
+            if 'caps' in sys.argv:
                 dialogue_act= dialogue_act.upper()  
-            if self.config['sounds']:
-                print(dialogue_act)
+            print(dialogue_act)         
+            if 'sounds' in sys.argv:
                 self.voice.say(dialogue_act)  
                 self.voice.runAndWait()
             utterance = input().lower()

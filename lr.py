@@ -39,12 +39,18 @@ def vectorize(dt):
 def train(x_train, x_test, y_train, y_test):
    
     # define model and fit it
-    lr = LogisticRegression(penalty='l1',solver='saga')
+    lr = LogisticRegression(penalty='l2',solver='saga')
     lr.fit(x_train, y_train)
-    filename = 'model.sav'
+    filename = 'lr_model.sav'
     pickle.dump(lr, open(filename, 'wb'))
     score = lr.score(x_test, y_test)
     print(score)
-def predict(x_test,y_test):
-    model = pickle.load(open('model.sav', 'rb'))
-    model.predict(x_test,y_test)
+def predict_lr(x_test,y_test):
+    model = pickle.load(open('lr_model.sav', 'rb'))
+    model.predict(x_test)
+
+dt = create_dataset()
+x_train, x_test, y_train, y_test = vectorize(dt)
+# train(x_train, x_test, y_train, y_test)
+# train(vectorize(dt))
+predict_lr(x_test,y_test)

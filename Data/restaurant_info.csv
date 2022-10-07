@@ -1,4 +1,4 @@
-restaurantname;pricerange;area;food;phone;addr;postcode;foodquality; crowdedness; lengthofstay
+restaurantname;pricerange;area;food;phone;addr;postcode;foodquality;crowdedness;lengthofstay
 saint johns chop house;moderate;west;british;01223 353110;21 - 24 northampton street;c.b 3;good;quiet;long
 restaurant alimentum;moderate;north;modern european;01223 413000;152 - 154 hills road;c.b 2;mediocre;busy;short
 pizza hut cherry hinton;moderate;south;italian;01223 323737;g4 cambridge leisure park clifton way cherry hinton;c.b 1;mediocre;quiet;short

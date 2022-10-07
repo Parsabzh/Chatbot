@@ -1,14 +1,18 @@
 # load libraries
+import os 
 import numpy as np
 import pandas as pd
 import sklearn
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-from NN1 import precision_m, recall_m, f1_m
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 from baselines import baseline_classification2
 from NN1 import NeuralNet
+from lr import predict_lr
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 #from lr import create_model as create_lr_model
 
 # read dataset as dataframe
@@ -48,7 +52,7 @@ def calculate_metrics(predictions, dialogue):
     disp = ConfusionMatrixDisplay.from_predictions(dialogue, predictions, xticks_rotation='vertical')
     acc = accuracy_score(dialogue, predictions)
     recall = recall_score(dialogue, predictions, average='weighted')
-    precision = precision_score(dialogue, predictions, average='micro')
+    precision = precision_score(dialogue, predictions, average='weighted')
     f1 = f1_score(dialogue, predictions, average='weighted')
     print("Accuracy: " + str(acc) + " ,F1: " + str(f1), " ,Recall: " + str(recall), " ,Precision: " + str(precision))
     plt.show()
@@ -58,13 +62,8 @@ def calculate_metrics(predictions, dialogue):
 baseline_predictions = run_features(x_test, y_test, baseline_classification2)
 calculate_metrics(baseline_predictions, y_test)
 
-# print('Baseline2 precision: ' + precision_m(y_test, baseline_predictions))
-# print('Baseline2 recall: ' + recall_m(y_test, baseline_predictions))
-# print('Baseline2 F1: ' + f1_m(y_test, baseline_predictions))
+lr_predictions = predict_lr(x_test, y_test)
+calculate_metrics(lr_predictions, y_test)
 
 nn_predictions = run_features(x_test, y_test, nn.predict)
 calculate_metrics(nn_predictions, y_test)
-
-# print('NN precision: ' + precision_m(y_test, nn_predictions))
-# print('NN recall: ' + recall_m(y_test, nn_predictions))
-# print('NN F1: ' + f1_m(y_test, nn_predictions))
