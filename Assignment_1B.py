@@ -1,4 +1,4 @@
-import os 
+import os
 import tensorflow as tf
 from ast import Delete
 from asyncio.windows_events import NULL
@@ -8,7 +8,7 @@ from re import M, U
 import Levenshtein as ls
 from Levenshtein import distance as lev
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
-from Assignment_1C import infer_preferences
+from Assignment_1C import inference_table, infer_preferences, inferred_dialogue
 import pandas as pd
 import sys
 
@@ -22,7 +22,7 @@ class DialogManager:
     def __init__(self):
 
         self.state = 'start'
-        
+
         # hello_welcome='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
         # if self.config['caps']:
         #         hello_welcome= hello_welcome.upper()
@@ -33,21 +33,21 @@ class DialogManager:
         # dt = create_dataframe()
         self.nn = neural_net_classifier()
         self.restaurant = None
-        
+
         self.loop()
 
     def state_transition(self, utterance):
         dialogue_act = None
         speech_act = self.nn.predict(utterance)
         print(speech_act)
-        
+
         # when user input is inform extract new preferences and suggest restaurant
-        if speech_act == 'inform' or speech_act == 'request' or utterance=='any':
+        if speech_act == 'inform' or speech_act == 'request' or utterance == 'any':
             self.preferences = self.preferences | extract_preferences(
-                utterance,self.state)
+                utterance, self.state)
 
             if self.preferences['area'] != '' and self.preferences['food'] != '' and self.preferences[
-                    'pricerange'] != '':
+                'pricerange'] != '':
 
                 # When the preferences are know go to state suggest restaurant, it can be found or not found
                 self.state = "suggest_restaurant"
@@ -59,8 +59,10 @@ class DialogManager:
                 rst = self.restaurant
                 if min_score != 0:
                     dialogue_act = "Im sorry there is no " + self.preferences[
-                        'pricerange'] + ' ' + self.preferences['food'] + ' restaurant on the ' + self.preferences['area'] + ' side of town.'
-                    dialogue_act += "\n But we have an alternative. Is the " + str(rst['food']) + ' restaurant \"' + str(rst['restaurantname']) + '\" on the ' + str(
+                        'pricerange'] + ' ' + self.preferences['food'] + ' restaurant on the ' + self.preferences[
+                                       'area'] + ' side of town.'
+                    dialogue_act += "\n But we have an alternative. Is the " + str(
+                        rst['food']) + ' restaurant \"' + str(rst['restaurantname']) + '\" on the ' + str(
                         rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
                     self.state = 'after_suggestion'
                 else:
@@ -68,6 +70,8 @@ class DialogManager:
                     # Give perfect match
                     dialogue_act = "Is " + str(rst['restaurantname']) + ' on the ' + str(
                         rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
+                    dialogue_act += "\n" + inferred_dialogue(self.preferences['condition'])  # give dialogue from
+                    # inference
                     self.state = 'after_suggestion'
             else:
 
@@ -103,35 +107,37 @@ class DialogManager:
         # After goodbye utterance go to end state
         if speech_act == 'bye':
             self.state = 'end'
-            
+
         if self.state == 'end':
             print("Thank you for using the system. Goodbye!")
         print(self.state)
         return dialogue_act
 
     def init_voice(self):
-        self.voice= vc.init()
-        voices = self.voice.getProperty('voices') 
+        self.voice = vc.init()
+        voices = self.voice.getProperty('voices')
         self.voice.setProperty('voice', voices[1].id)
+
     def loop(self):
         self.init_voice()
-        
+
         while self.state != 'end':
-            if self.state=='start':
-                dialogue_act='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
+            if self.state == 'start':
+                dialogue_act = 'Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
             if 'caps' in sys.argv:
-                dialogue_act= dialogue_act.upper()  
-            print(dialogue_act)         
+                dialogue_act = dialogue_act.upper()
+            print(dialogue_act)
             if 'sounds' in sys.argv:
-                self.voice.say(dialogue_act)  
+                self.voice.say(dialogue_act)
                 self.voice.runAndWait()
             utterance = input().lower()
             dialogue_act = self.state_transition(utterance)
 
+
 def give_info(restaurant, utterance):
     data = {"phone": ['number', 'telephone', 'phone'],
-    "addr": ['adres', 'adress', 'location'],
-    "postcode": ['postcode', 'code', 'postalcode', 'zipcode', 'post']}
+            "addr": ['adres', 'adress', 'location'],
+            "postcode": ['postcode', 'code', 'postalcode', 'zipcode', 'post']}
     words = utterance.split()
     for word in words:
         for key, val_list in list(data.items()):
@@ -139,14 +145,14 @@ def give_info(restaurant, utterance):
                 print(restaurant[key])
 
 
-def extract_preferences(utterance,state):
+def extract_preferences(utterance, state):
     data = {"area": restaurant_data['area'].dropna().unique().tolist(),
-            "food":restaurant_data['food'].dropna().unique().tolist(),
-            "condition": ['busy', 'romantic', 'children', 'sit'],
+            "food": restaurant_data['food'].dropna().unique().tolist(),
+            "condition": ['touristic', 'romantic', 'children', 'sit'],
             "pricerange": restaurant_data['pricerange'].dropna().unique().tolist(),
-            "foodquality":restaurant_data['foodquality'].dropna().unique().tolist(),
-            "crowdedness":restaurant_data['crowdedness'].dropna().unique().tolist(),
-            "lengthofstay":restaurant_data['lengthofstay'].dropna().unique().tolist()}
+            "foodquality": restaurant_data['foodquality'].dropna().unique().tolist(),
+            "crowdedness": restaurant_data['crowdedness'].dropna().unique().tolist(),
+            "lengthofstay": restaurant_data['lengthofstay'].dropna().unique().tolist()}
 
     words = utterance.split()
     preferences = {}
@@ -166,8 +172,8 @@ def extract_preferences(utterance,state):
                         preferences.update({'pricerange': 'any'})
                     case "inform":
                         for key in preferences:
-                            if preferences[key]=="":
-                               preferences.update({preferences,'any'}) 
+                            if preferences[key] == "":
+                                preferences.update({preferences, 'any'})
                 del data['area']
         n = len(word)
         for key, val_list in data.items():
@@ -198,13 +204,13 @@ def restaurant_suggestion(preferences):
     scores.sort(key=lambda x: x[0])
 
     min_score = scores[0][0]
-    _, suggestions = zip(*scores[:10]) #suggestions are the top 10 scoring restaurants
+    _, suggestions = zip(*scores[:10])  # suggestions are the top 10 scoring restaurants
 
     inferred_suggestions = infer_preferences(list(suggestions), preferences)
 
     # return list with the highest scoring restaurants, sorted from best to worst
     return inferred_suggestions, min_score
 
-#print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
-dialogue = DialogManager()
 
+# print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
+dialogue = DialogManager()
