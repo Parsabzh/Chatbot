@@ -1,16 +1,11 @@
 import os
-import tensorflow as tf
-from ast import Delete
-from asyncio.windows_events import NULL
-from mimetypes import init
-from operator import index
-from re import M, U
 import Levenshtein as ls
 from Levenshtein import distance as lev
 from NN1 import NeuralNet as neural_net_classifier, create_dataframe
 from Assignment_1C import inference_table, infer_preferences, inferred_dialogue
 import pandas as pd
 import sys
+import pyttsx3 as vc
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -91,13 +86,16 @@ class DialogManager:
         # After restaurant suggestion affirm, deny and request dialogue acts
         if self.state == 'after_suggestion':
             if speech_act == 'affirm':
-                self.state = 'end'
+                self.state = 'more_info'
                 dialogue_act = 'Thank you for using the system. Goodbye!'
             if speech_act in ['deny', 'negate', 'reqalts']:
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
             if speech_act == 'request':
                 self.state = 'give info'
+
+        if self.state == 'more_info':
+            dialogue_act = 'Would you like to have more info about the restaurant'
 
         # When the state is give info return asked information
         if self.state == 'give info':

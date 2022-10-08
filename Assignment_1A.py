@@ -1,8 +1,6 @@
 # load libraries
 import os 
-import numpy as np
 import pandas as pd
-import sklearn
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.metrics import ConfusionMatrixDisplay
