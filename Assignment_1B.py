@@ -166,13 +166,12 @@ def extract_preferences(utterance, state):
                         preferences.update({'area': 'any'})
                     case "request_food":
                         preferences.update({'food': 'any'})
-                    case "request_price":
+                    case "request_pricerange":
                         preferences.update({'pricerange': 'any'})
                     case "inform":
                         for key in preferences:
                             if preferences[key] == "":
                                 preferences.update({preferences, 'any'})
-                del data['area']
         n = len(word)
         for key, val_list in data.items():
             for val in val_list:

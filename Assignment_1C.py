@@ -57,7 +57,7 @@ def infer_preferences(suggestions,
 
 def inferred_dialogue(conditions=None): #return a string containing the inferred restaurant
     dialogue = ""
-    if len(conditions) == 0:
+    if not conditions:
         return ""
-    for condition in conditions:
-        dialogue += inference_table[condition]['dialogue'] + "\n"
+    dialogue += inference_table[conditions]['dialogue'] + "\n"
+    return dialogue
