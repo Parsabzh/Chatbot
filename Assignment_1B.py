@@ -58,13 +58,13 @@ class DialogManager:
                     dialogue_act = "Im sorry there is no " + self.preferences[
                         'pricerange'] + ' ' + self.preferences['food'] + ' restaurant on the ' + self.preferences['area'] + ' side of town.'
                     dialogue_act += "\n But we have an alternative. Is the " + str(rst['food']) + ' restaurant \"' + str(rst['restaurantname']) + '\" on the ' + str(
-                        rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
+                        rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok? You could also ask about information of the restaurant."
                     self.state = 'after_suggestion'
                 else:
 
                     # Give perfect match
                     dialogue_act = "Is " + str(rst['restaurantname']) + ' on the ' + str(
-                        rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
+                        rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok? You could also ask about information of the restaurant."
                     self.state = 'after_suggestion'
             else:
 
@@ -84,21 +84,26 @@ class DialogManager:
         # After restaurant suggestion affirm, deny and request dialogue acts
         if self.state == 'after_suggestion':
             if speech_act == 'affirm':
-                self.state = 'more_info'
-                dialogue_act = 'Thank you for using the system. Goodbye!'
+                self.state = 'end'
             if speech_act in ['deny', 'negate', 'reqalts']:
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
             if speech_act == 'request':
                 self.state = 'give info'
 
-        if self.state == 'more_info':
-            dialogue_act = 'Would you like to have more info about the restaurant'
-
         # When the state is give info return asked information
         if self.state == 'give info':
             give_info(self.restaurant, utterance)
             dialogue_act = 'Do you want to know anything else?'
+            self.state = 'final_station'
+
+        if self.state == 'final_station':
+            if speech_act == 'affirm':
+                print('What would you like to know?')
+                self.state = 'give info'
+            if speech_act in ['deny', 'negate', 'reqalts']:
+                self.state = 'end'
+
 
         # After goodbye utterance go to end state
         if speech_act == 'bye':
@@ -130,7 +135,7 @@ class DialogManager:
 
 def give_info(restaurant, utterance):
     data = {"phone": ['number', 'telephone', 'phone'],
-    "addr": ['adres', 'adress', 'location'],
+    "addr": ['addres', 'address', 'location'],
     "postcode": ['postcode', 'code', 'postalcode', 'zipcode', 'post']}
     words = utterance.split()
     for word in words:
