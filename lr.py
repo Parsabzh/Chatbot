@@ -3,9 +3,12 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 import pickle
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 #read dataset as dataframe
 def create_dataset():
@@ -45,12 +48,24 @@ def train(x_train, x_test, y_train, y_test):
     pickle.dump(lr, open(filename, 'wb'))
     score = lr.score(x_test, y_test)
     print(score)
-def predict_lr(x_test,y_test):
+def predict_lr(x_test):
     model = pickle.load(open('lr_model.sav', 'rb'))
-    model.predict(x_test)
-
+    y_pred= model.predict(x_test)
+    return y_pred
 dt = create_dataset()
+
+
+# print the accuracy, precision, recall, and f1 score for the predicted dialogue classes and plot a confusion matrix
+def calculate_metrics(y_pred, y_test):
+    disp = ConfusionMatrixDisplay.from_predictions(y_test, y_pred, xticks_rotation='vertical')
+    acc = accuracy_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred, average='weighted')
+    precision = precision_score(y_test, y_pred, average='weighted')
+    f1 = f1_score(y_test, y_pred, average='weighted')
+    print("Accuracy: " + str(acc) + " ,F1: " + str(f1), " ,Recall: " + str(recall), " ,Precision: " + str(precision))
+    plt.show()
+    print(disp)
+
 x_train, x_test, y_train, y_test = vectorize(dt)
-# train(x_train, x_test, y_train, y_test)
-# train(vectorize(dt))
-predict_lr(x_test,y_test)
+y_pred=predict_lr(x_test)
+calculate_metrics(y_pred,y_test)
