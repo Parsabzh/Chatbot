@@ -84,13 +84,16 @@ class DialogManager:
         # After restaurant suggestion affirm, deny and request dialogue acts
         if self.state == 'after_suggestion':
             if speech_act == 'affirm':
-                self.state = 'end'
+                self.state = 'more_info'
                 dialogue_act = 'Thank you for using the system. Goodbye!'
             if speech_act in ['deny', 'negate', 'reqalts']:
                 dialogue_act = "what would you like instead?"
                 self.state = 'suggest_restaurant'
             if speech_act == 'request':
                 self.state = 'give info'
+
+        if self.state == 'more_info':
+            dialogue_act = 'Would you like to have more info about the restaurant'
 
         # When the state is give info return asked information
         if self.state == 'give info':
@@ -139,7 +142,7 @@ def give_info(restaurant, utterance):
 def extract_preferences(utterance,state):
     data = {"area": restaurant_data['area'].dropna().unique().tolist(),
             "food":restaurant_data['food'].dropna().unique().tolist(),
-            "condition": ['busy', 'romantic', 'children', 'sit'],
+            "condition": ['touristic', 'romantic', 'children', 'sit'],
             "pricerange": restaurant_data['pricerange'].dropna().unique().tolist(),
             "foodquality":restaurant_data['foodquality'].dropna().unique().tolist(),
             "crowdedness":restaurant_data['crowdedness'].dropna().unique().tolist(),
