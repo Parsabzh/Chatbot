@@ -57,11 +57,10 @@ def calculate_metrics(predictions, dialogue):
     print(disp)
 
 
+#plot and print measurments for NN and baseline
+#we do it for Logistic regrssion in the lr.py
 baseline_predictions = run_features(x_test, y_test, baseline_classification2)
 calculate_metrics(baseline_predictions, y_test)
-
-lr_predictions = predict_lr(x_test, y_test)
-calculate_metrics(lr_predictions, y_test)
 
 nn_predictions = run_features(x_test, y_test, nn.predict)
 calculate_metrics(nn_predictions, y_test)
