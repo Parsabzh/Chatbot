@@ -148,8 +148,9 @@ def give_info(restaurant, utterance):
             if word in val_list:
                 print(restaurant[key])
 
-
+#extract prefrences 
 def extract_preferences(utterance, state):
+    #create dictionary for prefrences
     data = {"area": restaurant_data['area'].dropna().unique().tolist(),
             "food": restaurant_data['food'].dropna().unique().tolist(),
             "condition": ['touristic', 'romantic', 'children', 'sit'],
@@ -160,8 +161,9 @@ def extract_preferences(utterance, state):
 
     words = utterance.split()
     preferences = {}
+    #find which word should be considered as preference 
     for word in words:
-
+        # if we have exact word
         for key, val_list in list(data.items()):
             if word in val_list:
                 preferences.update({key: word})
@@ -179,6 +181,7 @@ def extract_preferences(utterance, state):
                             if preferences[key] == "":
                                 preferences.update({preferences, 'any'})
         n = len(word)
+        #if there is not exact word and calculate leveshtein distance
         for key, val_list in data.items():
             for val in val_list:
                 m = lev(word, val)
@@ -189,11 +192,6 @@ def extract_preferences(utterance, state):
                     if n < 3:
                         preferences.update({key: val})
     return preferences
-
-
-# f = extract_preferences(' i want to go cheap restuarant in south part of the town')
-
-
 def restaurant_suggestion(preferences):
     scores = []
     for restaurant in restaurants:
@@ -214,6 +212,4 @@ def restaurant_suggestion(preferences):
     # return list with the highest scoring restaurants, sorted from best to worst
     return inferred_suggestions, min_score
 
-
-# print(restaurant_suggestion({'pricerange': 'expenove', 'food': 'spenush'}))
 dialogue = DialogManager()
