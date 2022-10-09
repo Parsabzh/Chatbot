@@ -58,13 +58,13 @@ class DialogManager:
                                        'area'] + ' side of town.'
                     dialogue_act += "\n But we have an alternative. Is the " + str(
                         rst['food']) + ' restaurant \"' + str(rst['restaurantname']) + '\" on the ' + str(
-                        rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
+                        rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok? You could also ask about info on the restaurant."
                     self.state = 'after_suggestion'
                 else:
 
                     # Give perfect match
                     dialogue_act = "Is " + str(rst['restaurantname']) + ' on the ' + str(
-                        rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok?"
+                        rst['area']) + ' part of town with a ' + rst['pricerange'] + " price range ok? You could also ask about info on the restaurant."
                     dialogue_act += "\n" + inferred_dialogue(self.preferences['condition'])  # give dialogue from
                     # inference
                     self.state = 'after_suggestion'
