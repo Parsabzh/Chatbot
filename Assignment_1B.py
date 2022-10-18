@@ -6,6 +6,7 @@ from Assignment_1C import inference_table, infer_preferences, inferred_dialogue
 import pandas as pd
 import sys
 import pyttsx3 as vc
+import time
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -14,10 +15,13 @@ restaurants = restaurant_data.to_dict('records')
 
 
 class DialogManager:
-    def __init__(self):
+    dialogue = []
+    end_time = 0
+
+    def __init__(self, TTS=False):
 
         self.state = 'start'
-
+        self.time = time.time()
         # hello_welcome='Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?'
         # if self.config['caps']:
         #         hello_welcome= hello_welcome.upper()
@@ -25,11 +29,12 @@ class DialogManager:
         #    hello_welcome)
         self.preferences = {'area': '', 'food': '', 'pricerange': ''}
         self.dialogue_act = None
+        self.dialogue = []
         # dt = create_dataframe()
         self.nn = neural_net_classifier()
         self.restaurant = None
 
-        self.loop()
+        self.loop(TTS)
 
     def state_transition(self, utterance):
         dialogue_act = None
@@ -122,7 +127,7 @@ class DialogManager:
         voices = self.voice.getProperty('voices')
         self.voice.setProperty('voice', voices[1].id)
 
-    def loop(self):
+    def loop(self, TTS=False):
         self.init_voice()
 
         while self.state != 'end':
@@ -131,11 +136,17 @@ class DialogManager:
             if 'caps' in sys.argv:
                 dialogue_act = dialogue_act.upper()
             print(dialogue_act)
+            if not dialogue_act:
+                dialogue_act = ""
+            self.dialogue.append("System: " + dialogue_act)
             if 'sounds' in sys.argv:
                 self.voice.say(dialogue_act)
                 self.voice.runAndWait()
-            utterance = input().lower()
+            utterance = input()
+            self.dialogue.append("User: " + utterance)
+            utterance = utterance.lower()
             dialogue_act = self.state_transition(utterance)
+        self.end_time = time.time() - self.time
 
 
 def give_info(restaurant, utterance):
@@ -212,4 +223,3 @@ def restaurant_suggestion(preferences):
     # return list with the highest scoring restaurants, sorted from best to worst
     return inferred_suggestions, min_score
 
-dialogue = DialogManager()
