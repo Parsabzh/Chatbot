@@ -10,54 +10,46 @@ name = input()
 print("What is your age?")
 age = input()
 print("What is your identifier?")
-identifier = input()
+identifier = input().upper()
 
-session_name = "Data/session_" + name + "_" + age + "_" + identifier
+session_name = "Logs/Group_" + identifier + "_" + name + "_" + age
 parent_directory = os.getcwd()
 directory = os.path.join(parent_directory, session_name)
 os.mkdir(directory)
 
-scenarios = [{'name' : 'scenario_1', 'content': 'blablabla'}]
+scenarios = [{'name': 'scenario_1', 'content': 'Person is looking for chinese restaurant', 'restaurant': 'charlie chan'},
+             {'name': 'scenario_2', 'content': 'Person is looking for indian restaurant', 'restaurant': 'charlie chan'}]
+
+random.shuffle(scenarios)
 
 
-def log_dialogue(dialogue, scenario_name, time, TTS):
-    f = open(directory + "/" + scenario_name + "_TTS:_" + str(TTS) + ".txt", "w")
-    f.write(str(time))
-    f.write(str(dialogue))
+def run_scenarios(i, TTS):
+    for index in range(*i):
+        scenario = scenarios[index]
+        print(scenario['content'])  # print a random scenario
+        print("Do your best to find this person a restaurant! Enter anything to continue")
+        input()
+        dm = DialogManager(TTS=False)
+        dialogue = dm.dialogue
+        time = dm.end_time
+        restaurant = dm.restaurant
+        log_dialogue(dialogue, scenario, time, TTS)
 
 
-identifier = identifier.upper()
+def log_dialogue(dialogue, scenario, time, TTS):
+    f = open(directory + "/" + scenario['name'] + "_TTS=" + str(TTS) + ".txt", "w")
+    f.write("Time: " + str(time) + "\n")
+    for d in dialogue:
+        f.write(d)
+        f.write("\n")
+
 
 if identifier == "A":  # Group with normal chat first
-    for i in range(5):
-        scenario = random.sample(scenarios, 1)[0]
-        print(scenario['content'])  # print a random scenario
-        dm = DialogManager(TTS=False)
-        dialogue = DialogManager.dialogue
-        time = DialogManager.end_time
-        log_dialogue(dialogue, scenario['name'], time, TTS=False)
 
-    for i in range(5):
-        scenario = random.sample(scenarios, 1)[0]
-        print(scenario['content'])  # print a random scenario
-        dm = DialogManager(TTS=True)
-        dialogue = DialogManager.dialogue
-        time = DialogManager.end_time
-        log_dialogue(dialogue, scenario['name'], time, TTS=True)
+    run_scenarios((0,5), False)
+    run_scenarios((5,10), True)
 
 if identifier == "B":  # Group with TTS first
-    for i in range(5):
-        scenario = random.sample(scenarios, 1)[0]
-        print(scenario['content'])  # print a random scenario
-        dm = DialogManager(TTS=True)
-        dialogue = DialogManager.dialogue
-        time = DialogManager.end_time
-        log_dialogue(dialogue, scenario['name'], time, TTS=True)
 
-    for i in range(5):
-        scenario = random.sample(scenarios, 1)[0]
-        print(scenario['content'])  # print a random scenario
-        dm = DialogManager(TTS=False)
-        dialogue = DialogManager.dialogue
-        time = DialogManager.end_time
-        log_dialogue(dialogue, scenario['name'], time, TTS=False)
+    run_scenarios((0,5), True)
+    run_scenarios((5,10), False)

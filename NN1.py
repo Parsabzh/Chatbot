@@ -2,6 +2,8 @@
 from typing_extensions import Self
 import numpy as np
 import pandas as pd
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
