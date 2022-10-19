@@ -143,7 +143,7 @@ class DialogManager:
             if not dialogue_act:
                 dialogue_act = ""
             self.dialogue.append("System: \n" + dialogue_act)
-            if 'sounds' in sys.argv:
+            if 'sounds' in sys.argv or TTS:
                 self.voice.say(dialogue_act)
                 self.voice.runAndWait()
             utterance = input()

@@ -29,7 +29,7 @@ def run_scenarios(i, TTS):
         print(scenario['content'])  # print a random scenario
         print("Do your best to find this person a restaurant! Enter anything to continue")
         input()
-        dm = DialogManager(TTS=False)
+        dm = DialogManager(TTS=TTS)
         dialogue = dm.dialogue
         time = dm.end_time
         restaurant = dm.restaurant
