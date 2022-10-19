@@ -39,9 +39,11 @@ def run_scenarios(i, TTS):
 def log_dialogue(dialogue, scenario, time, TTS):
     f = open(directory + "/" + scenario['name'] + "_TTS=" + str(TTS) + ".txt", "w")
     f.write("Time: " + str(time) + "\n")
+    f.write("Complexity: " + str(len(dialogue)) + "\n")
     for d in dialogue:
         f.write(d)
         f.write("\n")
+
 
 
 if identifier == "A":  # Group with normal chat first
