@@ -57,9 +57,13 @@ def log_dialogue(dialogue, scenario, time, TTS):
 if identifier == "A":  # Group with normal chat first
 
     run_scenarios((0,5), False)
+    print('PLEASE FILL IN THE FIRST SURVEY AND THEN CONTINUE WITH FINDING THE NEXT RESTAURANT.')
     run_scenarios((5,10), True)
+    print('PLEASE FILL IN THE SECOND SURVEY.')
 
 if identifier == "B":  # Group with TTS first
 
     run_scenarios((0,5), True)
+    print('PLEASE FILL IN THE FIRST SURVEY AND THEN CONTINUE WITH FINDING THE NEXT RESTAURANT.')
     run_scenarios((5,10), False)
+    print('PLEASE FILL IN THE SECOND SURVEY.')
