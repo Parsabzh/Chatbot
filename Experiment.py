@@ -39,7 +39,7 @@ def run_scenarios(i, TTS):
         input()
         dm = DialogManager(TTS=TTS)
         dialogue = dm.dialogue
-        time = dm.end_time
+        time = dm.end_time - dm.tts_time
         restaurant = dm.restaurant
         log_dialogue(dialogue, scenario, time, TTS)
 

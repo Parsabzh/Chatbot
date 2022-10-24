@@ -17,6 +17,7 @@ restaurants = restaurant_data.to_dict('records')
 class DialogManager:
     dialogue = []
     end_time = 0
+    tts_time = 0
     restaurant = None
 
     def __init__(self, TTS=False):
@@ -33,6 +34,7 @@ class DialogManager:
         self.dialogue = []
         self.restaurant = None
         self.end_time = 0
+        self.start_tts_time = 0
         # dt = create_dataframe()
         self.nn = neural_net_classifier()
 
@@ -128,6 +130,8 @@ class DialogManager:
 
     def init_voice(self):
         self.voice = vc.init()
+        voices = vc.getProperty('voices')
+        vc.setProperty('voice', voices[1].id)
         voices = self.voice.getProperty('voices')
         self.voice.setProperty('voice', voices[1].id)
 
@@ -144,8 +148,10 @@ class DialogManager:
                 dialogue_act = ""
             self.dialogue.append("System: \n" + dialogue_act)
             if 'sounds' in sys.argv or TTS:
+                self.start_tts_time = time.time()
                 self.voice.say(dialogue_act)
                 self.voice.runAndWait()
+                self.tts_time = self.tts_time + (time.time() - self.start_tts_time)
             utterance = input()
             self.dialogue.append("User: \n" + utterance)
             utterance = utterance.lower()
