@@ -1,0 +1,10 @@
+Time: 11.74424934387207
+Complexity: 4
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+chinese east expensive
+System: 
+Is yu garden on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yes
