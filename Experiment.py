@@ -23,7 +23,7 @@ scenarios = [{'name': 'scenario_1', 'content': 'Person is looking for a chinese 
              {'name': 'scenario_4', 'content': 'Person is looking for the phone number of an cheap vietnamese restaurant in the west that is bad', 'restaurant': 'thanh binh'},
              {'name': 'scenario_5', 'content': 'Person is looking for a moderately priced romanian restaurant and its address', 'restaurant': 'the gardenia'},
              {'name': 'scenario_6', 'content': 'Person is looking for and expensive mediterranean restaurant that is busy in the centre', 'restaurant': 'shiraz'},
-             {'name': 'scenario_7', 'content': 'Person is looking for an expensive gatrobup in the east part of town', 'restaurant': 'cocum'},
+             {'name': 'scenario_7', 'content': 'Person is looking for an expensive gastrobup in the east part of town', 'restaurant': 'cocum'},
              {'name': 'scenario_8', 'content': 'Person is looking for a moderatly priced british restaurant that is busy and its address', 'restaurant': 'cotto'},
              {'name': 'scenario_9', 'content': 'Person is looking for the phone number of a cheap indian restaurant in the centre', 'restaurant': 'mahal of cambridge'},
              {'name': 'scenario_10', 'content': 'Person is looking for a traditional cheap restaurant in the north part of town', 'restaurant': 'vinci pizzeria'}]

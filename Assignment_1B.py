@@ -130,8 +130,8 @@ class DialogManager:
 
     def init_voice(self):
         self.voice = vc.init()
-        voices = vc.getProperty('voices')
-        vc.setProperty('voice', voices[1].id)
+        # voices = vc.getProperty('voices')
+        # vc.setProperty('voice', voices[1].id)
         voices = self.voice.getProperty('voices')
         self.voice.setProperty('voice', voices[1].id)
 
