@@ -1,0 +1,38 @@
+Time: 240.80260276794434
+Complexity: 16
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I am looking for an Indian restauarant in the centre of London
+System: 
+What pricerange does the food have to be?
+User: 
+expensive
+System: 
+Im sorry there is no expensive indian restaurant on the centre side of town.
+ But we have an alternative. Is the italian restaurant "caffe uno" on the centre part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+no, I am looking for an Indian restaurant
+System: 
+Im sorry there is no expensive indian restaurant on the centre side of town.
+ But we have an alternative. Is the italian restaurant "caffe uno" on the centre part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+no
+System: 
+what would you like instead?
+User: 
+An Indian restaurant not in the centre of town
+System: 
+Im sorry there is no expensive indian restaurant on the centre side of town.
+ But we have an alternative. Is the italian restaurant "caffe uno" on the centre part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+No
+System: 
+what would you like instead?
+User: 
+Indian
+System: 
+Im sorry there is no expensive indian restaurant on the centre side of town.
+ But we have an alternative. Is the italian restaurant "caffe uno" on the centre part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+Yes

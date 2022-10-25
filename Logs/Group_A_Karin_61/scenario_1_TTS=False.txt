@@ -1,0 +1,15 @@
+Time: 92.13793087005615
+Complexity: 6
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I am looking for a chinese restaurant in the east part of town
+System: 
+What pricerange does the food have to be?
+User: 
+cheap
+System: 
+Im sorry there is no cheap chinese restaurant on the east side of town.
+ But we have an alternative. Is the chinese restaurant "the missing sock" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+yes
