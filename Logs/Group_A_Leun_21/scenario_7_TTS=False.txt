@@ -1,0 +1,26 @@
+Time: 108.313223361969
+Complexity: 12
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I want pizza
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I would like gastropub
+System: 
+In which area would you like to eat?
+User: 
+east
+System: 
+What pricerange does the food have to be?
+User: 
+expensive
+System: 
+Is cocum on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+I would like some info
+System: 
+
+User: 
+goodbye thanks

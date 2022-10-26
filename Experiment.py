@@ -19,11 +19,11 @@ os.mkdir(directory)
 
 scenarios = [{'name': 'scenario_1', 'content': 'Person is looking for a chinese restaurant, is living in the east part of town and cannot afford expensive food', 'restaurant': 'shanghai family restaurant'},
              {'name': 'scenario_2', 'content': 'Person is looking for a french restaurant in the north and has a lot of money', 'restaurant': 'two two'},
-             {'name': 'scenario_3', 'content': 'Person is looking for a mediocre cheap chinese restaurant in the south ', 'restaurant': 'the missing sock'},
-             {'name': 'scenario_4', 'content': 'Person is looking for the phone number of an cheap vietnamese restaurant in the west that is bad', 'restaurant': 'thanh binh'},
+             {'name': 'scenario_3', 'content': 'Person is looking for a cheap chinese restaurant in the south that serves mediocre food', 'restaurant': 'the missing sock'},
+             {'name': 'scenario_4', 'content': 'Person is looking for the phone number of a cheap vietnamese restaurant in the west that serves bad food', 'restaurant': 'thanh binh'},
              {'name': 'scenario_5', 'content': 'Person is looking for a moderately priced romanian restaurant and its address', 'restaurant': 'the gardenia'},
-             {'name': 'scenario_6', 'content': 'Person is looking for and expensive mediterranean restaurant that is busy in the centre', 'restaurant': 'shiraz'},
-             {'name': 'scenario_7', 'content': 'Person is looking for an expensive gastrobup in the east part of town', 'restaurant': 'cocum'},
+             {'name': 'scenario_6', 'content': 'Person is looking for an expensive mediterranean restaurant that is busy in the centre of town', 'restaurant': 'shiraz'},
+             {'name': 'scenario_7', 'content': 'Person is looking for an expensive gastropub in the east part of town', 'restaurant': 'cocum'},
              {'name': 'scenario_8', 'content': 'Person is looking for a moderatly priced british restaurant that is busy and its address', 'restaurant': 'cotto'},
              {'name': 'scenario_9', 'content': 'Person is looking for the phone number of a cheap indian restaurant in the centre', 'restaurant': 'mahal of cambridge'},
              {'name': 'scenario_10', 'content': 'Person is looking for a traditional cheap restaurant in the north part of town', 'restaurant': 'vinci pizzeria'}]
