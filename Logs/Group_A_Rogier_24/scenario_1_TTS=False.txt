@@ -1,0 +1,41 @@
+Time: 97.80053925514221
+Complexity: 18
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I'm looking for a chinese restaurant
+System: 
+In which area would you like to eat?
+User: 
+east
+System: 
+What pricerange does the food have to be?
+User: 
+chinese
+System: 
+What pricerange does the food have to be?
+User: 
+cheap
+System: 
+Im sorry there is no cheap chinese restaurant on the east side of town.
+ But we have an alternative. Is the chinese restaurant "the missing sock" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+info -l
+System: 
+what would you like instead?
+User: 
+italian south
+System: 
+Is la margherita on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+north
+System: 
+Im sorry there is no cheap italian restaurant on the north side of town.
+ But we have an alternative. Is the italian restaurant "la margherita" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+expensive
+System: 
+Im sorry there is no expensive italian restaurant on the north side of town.
+ But we have an alternative. Is the italian restaurant "frankie and bennys" on the south part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yes

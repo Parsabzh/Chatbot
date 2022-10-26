@@ -1,0 +1,11 @@
+Time: 7.522765636444092
+Complexity: 4
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+cheap gastropub east
+System: 
+Im sorry there is no cheap gastropub restaurant on the east side of town.
+ But we have an alternative. Is the gastropub restaurant "cocum" on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yes

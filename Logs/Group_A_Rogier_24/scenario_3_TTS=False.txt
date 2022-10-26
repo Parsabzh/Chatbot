@@ -1,0 +1,14 @@
+Time: 91.13323640823364
+Complexity: 6
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I'm looking for a mediocre chinese restaurant in the south
+System: 
+What pricerange does the food have to be?
+User: 
+cheap
+System: 
+Is the missing sock on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+Yes

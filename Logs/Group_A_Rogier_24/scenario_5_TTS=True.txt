@@ -1,0 +1,24 @@
+Time: 30.373084783554077
+Complexity: 10
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+romanian moderately priced
+System: 
+In which area would you like to eat?
+User: 
+sexytown
+System: 
+
+User: 
+south
+System: 
+Im sorry there is no moderate romanian restaurant on the south side of town.
+ But we have an alternative. Is the italian restaurant "pizza hut cherry hinton" on the south part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+north
+System: 
+Im sorry there is no moderate romanian restaurant on the north side of town.
+ But we have an alternative. Is the romanian restaurant "the gardenia" on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+yes
