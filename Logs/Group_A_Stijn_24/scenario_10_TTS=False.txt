@@ -1,0 +1,36 @@
+Time: 141.09996032714844
+Complexity: 16
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+North
+System: 
+What kind of food would you like to eat?
+User: 
+Italian
+System: 
+What pricerange does the food have to be?
+User: 
+middle class
+System: 
+
+User: 
+cheap
+System: 
+Im sorry there is no cheap italian restaurant on the north side of town.
+ But we have an alternative. Is the italian restaurant "la margherita" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+info
+System: 
+what would you like instead?
+User: 
+italian
+System: 
+Im sorry there is no cheap italian restaurant on the north side of town.
+ But we have an alternative. Is the italian restaurant "la margherita" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+What is the exact location?
+System: 
+Do you want to know anything else?
+User: 
+What is the adress?
