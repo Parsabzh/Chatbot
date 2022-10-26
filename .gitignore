@@ -8,3 +8,6 @@ __pycache__/NN1.cpython-310.pyc
 *.pyc
 venv/*
 *.pyc
+*.pyc
+__pycache__/NN1.cpython-310.pyc
+__pycache__/Assignment_1C.cpython-310.pyc
