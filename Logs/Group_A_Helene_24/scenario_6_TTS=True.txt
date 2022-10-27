@@ -1,0 +1,21 @@
+Time: 31.379798650741577
+Complexity: 8
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I am looking for a medierranean restaurant in the centre with an expensive price
+System: 
+Is hk fusion on the centre part of town with a expensive price range ok? You could also ask about info on the restaurant.
+The restaurant has assigned seating, because it is busy
+
+User: 
+ok
+System: 
+what would you like instead?
+User: 
+I would like hk fusion
+System: 
+Im sorry there is no expensive fusion restaurant on the centre side of town.
+ But we have an alternative. Is the french restaurant "cote" on the centre part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yes

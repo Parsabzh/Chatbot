@@ -1,0 +1,43 @@
+Time: 53.226369857788086
+Complexity: 20
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+gastro pub east expensive
+System: 
+Im sorry there is no expensive bistro restaurant on the east side of town.
+ But we have an alternative. Is the british restaurant "grafton hotel restaurant" on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+no
+System: 
+what would you like instead?
+User: 
+sorry
+System: 
+
+User: 
+yes
+System: 
+
+User: 
+help
+System: 
+
+User: 
+pls
+System: 
+
+User: 
+gastropub
+System: 
+Is cocum on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yess
+System: 
+what would you like instead?
+User: 
+east
+System: 
+Is cocum on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yes

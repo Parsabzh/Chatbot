@@ -1,0 +1,19 @@
+Time: 6.036980628967285
+Complexity: 8
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+cheap vietnamese restaurant west trash food
+System: 
+Im sorry there is no cheap vietnamese restaurant on the west side of town.
+ But we have an alternative. Is the vietnamese restaurant "thanh binh" on the west part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+foodtype
+System: 
+what would you like instead?
+User: 
+yes
+System: 
+
+User: 
+bye

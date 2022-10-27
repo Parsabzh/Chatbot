@@ -1,0 +1,40 @@
+Time: 106.45006680488586
+Complexity: 18
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Burgers
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I would like to eat pizza
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Vietnamese
+System: 
+In which area would you like to eat?
+User: 
+South
+System: 
+What pricerange does the food have to be?
+User: 
+expensive
+System: 
+Im sorry there is no expensive vietnamese restaurant on the south side of town.
+ But we have an alternative. Is the chinese restaurant "peking restaurant" on the south part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+No
+System: 
+what would you like instead?
+User: 
+Pizza
+System: 
+
+User: 
+Vietnamese
+System: 
+Im sorry there is no expensive vietnamese restaurant on the south side of town.
+ But we have an alternative. Is the chinese restaurant "peking restaurant" on the south part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+Yes

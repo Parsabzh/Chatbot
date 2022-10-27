@@ -1,0 +1,40 @@
+Time: 60.27729558944702
+Complexity: 18
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Cheese
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Paris
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Den Helder
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+cheap
+System: 
+In which area would you like to eat?
+User: 
+north
+System: 
+What kind of food would you like to eat?
+User: 
+french
+System: 
+Im sorry there is no cheap french restaurant on the north side of town.
+ But we have an alternative. Is the indian restaurant "royal spice" on the north part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+no
+System: 
+what would you like instead?
+User: 
+French
+System: 
+Im sorry there is no cheap french restaurant on the north side of town.
+ But we have an alternative. Is the indian restaurant "royal spice" on the north part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+yes

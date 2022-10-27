@@ -1,0 +1,20 @@
+Time: 18.397371768951416
+Complexity: 8
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I want a moderately prices english restaurant that is busy
+System: 
+Im sorry there is no moderate thai restaurant on the west side of town.
+ But we have an alternative. Is the italian restaurant "pizza hut fen ditton" on the east part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+No
+System: 
+what would you like instead?
+User: 
+British
+System: 
+Im sorry there is no moderate british restaurant on the west side of town.
+ But we have an alternative. Is the british restaurant "the copper kettle" on the east part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+yes

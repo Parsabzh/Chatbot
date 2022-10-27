@@ -1,0 +1,22 @@
+Time: 43.58913278579712
+Complexity: 10
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+british
+System: 
+In which area would you like to eat?
+User: 
+i dont know
+System: 
+In which area would you like to eat?
+User: 
+any
+System: 
+What pricerange does the food have to be?
+User: 
+moderatly priced
+System: 
+Is saint johns chop house on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+yes

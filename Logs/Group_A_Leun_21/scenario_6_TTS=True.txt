@@ -1,0 +1,26 @@
+Time: 13.201597452163696
+Complexity: 12
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+mediterranean
+System: 
+In which area would you like to eat?
+User: 
+centre
+System: 
+What pricerange does the food have to be?
+User: 
+expensive
+System: 
+Is shiraz restaurant on the centre part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+is it busy?
+System: 
+what would you like instead?
+User: 
+mediterranean
+System: 
+Is shiraz restaurant on the centre part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yes

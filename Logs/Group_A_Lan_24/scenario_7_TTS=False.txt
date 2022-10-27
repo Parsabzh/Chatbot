@@ -1,0 +1,23 @@
+Time: 35.54096341133118
+Complexity: 10
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+i want an expensive gastrobup in the east
+System: 
+Im sorry there is no expensive thai restaurant on the east side of town.
+ But we have an alternative. Is the thai restaurant "sala thong" on the west part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+is it a gastrobup
+System: 
+what would you like instead?
+User: 
+sala thong
+System: 
+
+User: 
+
+System: 
+
+User: 
+bye

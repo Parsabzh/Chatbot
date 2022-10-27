@@ -1,0 +1,31 @@
+Time: 74.87760210037231
+Complexity: 14
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+british restaurant, not expensive, busy
+System: 
+Im sorry there is no expensive british restaurant on the north side of town.
+ But we have an alternative. Is the british restaurant "travellers rest" on the west part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+no
+System: 
+what would you like instead?
+User: 
+less expensive
+System: 
+Is travellers rest on the west part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+no
+System: 
+what would you like instead?
+User: 
+cheaper price
+System: 
+Do you want to know anything else?
+User: 
+address
+System: 
+Do you want to know anything else?
+User: 
+no

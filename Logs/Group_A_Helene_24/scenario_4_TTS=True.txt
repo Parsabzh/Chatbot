@@ -1,0 +1,26 @@
+Time: 32.051827907562256
+Complexity: 10
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I am looking for a cheap vietnamese restaurant in the west with bad food
+System: 
+Is nandos on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+The restaurant has assigned seating, because it is busy
+
+User: 
+Is the food bad?
+System: 
+Im sorry there is no cheap thai restaurant on the west side of town.
+ But we have an alternative. Is the thai restaurant "sala thong" on the west part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+phone number?
+System: 
+Do you want to know anything else?
+User: 
+Is the food bad?
+System: 
+Im sorry there is no cheap thai restaurant on the west side of town.
+ But we have an alternative. Is the thai restaurant "sala thong" on the west part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yes

@@ -1,0 +1,38 @@
+Time: 38.51284050941467
+Complexity: 18
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Romanian
+System: 
+In which area would you like to eat?
+User: 
+anywhere
+System: 
+
+User: 
+any
+System: 
+What pricerange does the food have to be?
+User: 
+moderate
+System: 
+Is the gardenia on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+Ok
+System: 
+what would you like instead?
+User: 
+Yes
+System: 
+
+User: 
+Romanian
+System: 
+Is the gardenia on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+Buy
+System: 
+what would you like instead?
+User: 
+bye
