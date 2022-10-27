@@ -1,0 +1,44 @@
+Time: 169.77292585372925
+Complexity: 20
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I want afordable price
+System: 
+What kind of food would you like to eat?
+User: 
+romanion
+System: 
+
+User: 
+romanian fodd
+System: 
+What pricerange does the food have to be?
+User: 
+50 
+System: 
+
+User: 
+moderate price
+System: 
+Im sorry there is no moderate romanian restaurant on the west side of town.
+ But we have an alternative. Is the british restaurant "saint johns chop house" on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+no
+System: 
+what would you like instead?
+User: 
+romanion food
+System: 
+Im sorry there is no moderate romanian restaurant on the west side of town.
+ But we have an alternative. Is the british restaurant "saint johns chop house" on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+no buy
+System: 
+what would you like instead?
+User: 
+buy
+System: 
+
+User: 
+bye

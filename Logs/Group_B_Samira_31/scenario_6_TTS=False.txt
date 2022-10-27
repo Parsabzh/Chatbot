@@ -1,0 +1,14 @@
+Time: 35.77316880226135
+Complexity: 6
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+mediterranian resturant in center
+System: 
+What pricerange does the food have to be?
+User: 
+expensive price
+System: 
+Do you want to know anything else?
+User: 
+busy one

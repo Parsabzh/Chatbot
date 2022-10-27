@@ -1,0 +1,34 @@
+Time: 61.09133815765381
+Complexity: 16
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+price
+System: 
+In which area would you like to eat?
+User: 
+east
+System: 
+What kind of food would you like to eat?
+User: 
+chines
+System: 
+
+User: 
+
+System: 
+
+User: 
+chines food
+System: 
+What pricerange does the food have to be?
+User: 
+ecpencive
+System: 
+
+User: 
+expencive price
+System: 
+Do you want to know anything else?
+User: 
+no

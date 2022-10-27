@@ -1,0 +1,14 @@
+Time: 35.14342403411865
+Complexity: 6
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+french resturant in the north part
+System: 
+What pricerange does the food have to be?
+User: 
+expencive price
+System: 
+Do you want to know anything else?
+User: 
+no

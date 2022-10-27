@@ -1,0 +1,18 @@
+Time: 51.94962430000305
+Complexity: 8
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Hi I want to go to a French luxury restaurant in the north
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I want to go to a luxurious French restaurant in the north
+System: 
+What pricerange does the food have to be?
+User: 
+Very expensive
+System: 
+Is restaurant two two on the north part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+Yes

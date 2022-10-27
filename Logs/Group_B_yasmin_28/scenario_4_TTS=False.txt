@@ -1,0 +1,12 @@
+Time: 57.0511429309845
+Complexity: 4
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I want a bad vietnamese restaurant with cheap menu
+System: 
+Is nandos on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+The restaurant has assigned seating, because it is busy
+
+User: 
+Yes. WHat is the phone number?

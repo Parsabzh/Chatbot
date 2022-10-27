@@ -1,0 +1,16 @@
+Time: 78.53387713432312
+Complexity: 6
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I want to go to a chinese restaurant in east zone of the town with cheap menu
+System: 
+Im sorry there is no cheap chinese restaurant on the east side of town.
+ But we have an alternative. Is the chinese restaurant "rice house" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+East
+System: 
+Im sorry there is no cheap chinese restaurant on the east side of town.
+ But we have an alternative. Is the chinese restaurant "rice house" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+No bye
