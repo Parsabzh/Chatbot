@@ -1,0 +1,18 @@
+Time: 19.017005681991577
+Complexity: 8
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+north
+System: 
+What kind of food would you like to eat?
+User: 
+any
+System: 
+What pricerange does the food have to be?
+User: 
+cheap
+System: 
+Is da vinci pizzeria on the north part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+yes
