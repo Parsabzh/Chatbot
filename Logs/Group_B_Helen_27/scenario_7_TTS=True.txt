@@ -1,0 +1,18 @@
+Time: 30.350216388702393
+Complexity: 8
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I waned expensive gastrpub food in east 
+System: 
+Is the slug and lettuce on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+thnaks nice
+System: 
+what would you like instead?
+User: 
+no 
+System: 
+
+User: 
+no bye

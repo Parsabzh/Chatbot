@@ -1,0 +1,11 @@
+Time: 21.85913920402527
+Complexity: 4
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I need cheap chines food in the east
+System: 
+Im sorry there is no cheap thai restaurant on the east side of town.
+ But we have an alternative. Is the indian restaurant "kohinoor" on the west part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+no bye

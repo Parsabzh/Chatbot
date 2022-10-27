@@ -1,0 +1,18 @@
+Time: 67.8668601512909
+Complexity: 8
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I need romanian food in moderat price
+System: 
+In which area would you like to eat?
+User: 
+any
+System: 
+what would you like instead?
+User: 
+it's address
+System: 
+Do you want to know anything else?
+User: 
+no

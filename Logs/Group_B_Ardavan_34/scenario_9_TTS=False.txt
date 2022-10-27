@@ -1,0 +1,19 @@
+Time: 32.99070715904236
+Complexity: 8
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I need cheap indian food
+System: 
+In which area would you like to eat?
+User: 
+in the center
+System: 
+Im sorry there is no cheap thai restaurant on the centre side of town.
+ But we have an alternative. Is the indian restaurant "mahal of cambridge" on the centre part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+what is phone number
+System: 
+Do you want to know anything else?
+User: 
+no bye

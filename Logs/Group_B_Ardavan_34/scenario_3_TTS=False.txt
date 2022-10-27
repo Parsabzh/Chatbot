@@ -1,0 +1,19 @@
+Time: 43.189050912857056
+Complexity: 8
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I need chines restuarant
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I want chines food
+System: 
+What pricerange does the food have to be?
+User: 
+cheap one
+System: 
+Im sorry there is no cheap chinese restaurant on the west side of town.
+ But we have an alternative. Is the chinese restaurant "charlie chan" on the centre part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+yes 

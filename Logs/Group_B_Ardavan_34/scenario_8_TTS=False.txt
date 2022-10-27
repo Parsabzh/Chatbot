@@ -1,0 +1,26 @@
+Time: 30.1449556350708
+Complexity: 12
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+i wanna go to birtish restraurant with moderate peice
+System: 
+In which area would you like to eat?
+User: 
+any
+System: 
+what would you like instead?
+User: 
+nothing 
+System: 
+
+User: 
+
+System: 
+
+User: 
+I don't need anything
+System: 
+
+User: 
+bye
