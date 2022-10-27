@@ -1,0 +1,28 @@
+Time: 33.70756196975708
+Complexity: 12
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I want to eat French food please
+System: 
+What pricerange does the food have to be?
+User: 
+I can spend much
+System: 
+
+User: 
+Expensive
+System: 
+Im sorry there is no expensive french restaurant on the east side of town.
+ But we have an alternative. Is the indian restaurant "curry prince" on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+No
+System: 
+what would you like instead?
+User: 
+French food in the north
+System: 
+Im sorry there is no expensive french restaurant on the north side of town.
+ But we have an alternative. Is the french restaurant "restaurant two two" on the north part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yes

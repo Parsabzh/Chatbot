@@ -1,0 +1,30 @@
+Time: 12.976944923400879
+Complexity: 14
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I would like to eat at a gastropub
+System: 
+What pricerange does the food have to be?
+User: 
+Expensive is fine
+System: 
+Is cocum on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+That's perfect
+System: 
+what would you like instead?
+User: 
+Nothing
+System: 
+
+User: 
+Cocum is good
+System: 
+
+User: 
+gastropub
+System: 
+Is cocum on the east part of town with a expensive price range ok? You could also ask about info on the restaurant.
+User: 
+yes

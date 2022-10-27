@@ -1,0 +1,51 @@
+Time: 55.85117745399475
+Complexity: 22
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I would like to eat romanian food
+System: 
+What pricerange does the food have to be?
+User: 
+Averagely priced
+System: 
+What pricerange does the food have to be?
+User: 
+Average
+System: 
+
+User: 
+Moderate
+System: 
+Im sorry there is no moderate romanian restaurant on the east side of town.
+ But we have an alternative. Is the italian restaurant "pizza hut fen ditton" on the east part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+No
+System: 
+what would you like instead?
+User: 
+I want romanian food instead.
+System: 
+Im sorry there is no moderate romanian restaurant on the west side of town.
+ But we have an alternative. Is the british restaurant "saint johns chop house" on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+No, not British. Don't you have Romanian?
+System: 
+Im sorry there is no moderate romanian restaurant on the north side of town.
+ But we have an alternative. Is the indian restaurant "tandoori palace" on the north part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+Romanian?
+System: 
+Im sorry there is no moderate romanian restaurant on the north side of town.
+ But we have an alternative. Is the indian restaurant "tandoori palace" on the north part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+no
+System: 
+what would you like instead?
+User: 
+romanian
+System: 
+Im sorry there is no moderate romanian restaurant on the north side of town.
+ But we have an alternative. Is the indian restaurant "tandoori palace" on the north part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+Yes

@@ -1,0 +1,11 @@
+Time: 9.531638383865356
+Complexity: 4
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Chinese restaurant, in the east and cheap
+System: 
+Im sorry there is no cheap chinese restaurant on the east side of town.
+ But we have an alternative. Is the chinese restaurant "the lucky star" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+Yeah that's fine
