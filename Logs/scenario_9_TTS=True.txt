@@ -1,0 +1,45 @@
+Time: 118.06106758117676
+Complexity: 18
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Can you find me a cheap Indian restaurant in the city centre? 
+System: 
+Is mahal of cambridge on the centre part of town with a cheap price range ok? You could also ask about info on the restaurant.
+The restaurant has assigned seating, because it is busy
+
+User: 
+can you tell me more about the restaurant? 
+System: 
+Im sorry there is no cheap thai restaurant on the centre side of town.
+ But we have an alternative. Is the indian restaurant "mahal of cambridge" on the centre part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+Can you give me more information about mahal of cambridge restaurant? 
+System: 
+Im sorry there is no cheap cuban restaurant on the centre side of town.
+ But we have an alternative. Is the indian restaurant "mahal of cambridge" on the centre part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+More info please
+System: 
+what would you like instead?
+User: 
+information about mahal of cambridge
+System: 
+Im sorry there is no cheap cuban restaurant on the centre side of town.
+ But we have an alternative. Is the indian restaurant "mahal of cambridge" on the centre part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+that is okay
+System: 
+
+User: 
+
+System: 
+what would you like instead?
+User: 
+a cheap indian restaurant in the city centre
+System: 
+Is mahal of cambridge on the centre part of town with a cheap price range ok? You could also ask about info on the restaurant.
+The restaurant has assigned seating, because it is busy
+
+User: 
+yes

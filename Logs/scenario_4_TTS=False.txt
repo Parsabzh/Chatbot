@@ -1,0 +1,14 @@
+Time: 5.728407859802246
+Complexity: 6
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+cheap vietnamese
+System: 
+In which area would you like to eat?
+User: 
+west
+System: 
+Is thanh binh on the west part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+yes

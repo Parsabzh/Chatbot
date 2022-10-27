@@ -1,0 +1,30 @@
+Time: 60.26145362854004
+Complexity: 12
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+Can you find me a mediocre cheap chinese restaurant in the south? 
+System: 
+Is the missing sock on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+can you give me info about the missing sock? 
+System: 
+Im sorry there is no cheap thai restaurant on the south side of town.
+ But we have an alternative. Is the chinese restaurant "the missing sock" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+can you give me info about restaurant? 
+System: 
+Im sorry there is no cheap cuban restaurant on the south side of town.
+ But we have an alternative. Is the chinese restaurant "the missing sock" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+can you give me info about "the missing sock"? 
+System: 
+Im sorry there is no cheap cuban restaurant on the south side of town.
+ But we have an alternative. Is the chinese restaurant "the missing sock" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+ info about "the missing sock"?
+System: 
+Im sorry there is no cheap cuban restaurant on the south side of town.
+ But we have an alternative. Is the chinese restaurant "the missing sock" on the south part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+yes 
