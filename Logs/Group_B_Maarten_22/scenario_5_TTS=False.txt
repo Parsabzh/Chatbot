@@ -1,0 +1,52 @@
+Time: 49.365299463272095
+Complexity: 22
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I want to have Romanian food
+System: 
+What pricerange does the food have to be?
+User: 
+Moderate
+System: 
+Im sorry there is no moderate romanian restaurant on the west side of town.
+ But we have an alternative. Is the british restaurant "saint johns chop house" on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+No, not british
+System: 
+Im sorry there is no moderate british restaurant on the north side of town.
+ But we have an alternative. Is the british restaurant "saint johns chop house" on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+No
+System: 
+what would you like instead?
+User: 
+Romanian food
+System: 
+Im sorry there is no moderate romanian restaurant on the north side of town.
+ But we have an alternative. Is the indian restaurant "tandoori palace" on the north part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+Not Indian, i want romanian food
+System: 
+Im sorry there is no moderate romanian restaurant on the west side of town.
+ But we have an alternative. Is the british restaurant "saint johns chop house" on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+No
+System: 
+what would you like instead?
+User: 
+Romanian
+System: 
+Im sorry there is no moderate romanian restaurant on the west side of town.
+ But we have an alternative. Is the british restaurant "saint johns chop house" on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+no
+System: 
+what would you like instead?
+User: 
+Romanian
+System: 
+Im sorry there is no moderate romanian restaurant on the west side of town.
+ But we have an alternative. Is the british restaurant "saint johns chop house" on the west part of town with a moderate price range ok? You could also ask about info on the restaurant.
+User: 
+Yes

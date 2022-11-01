@@ -1,0 +1,24 @@
+Time: 15.706745624542236
+Complexity: 10
+System: 
+Hello, welcome to the Restaurant Recommendation System. You can ask for restaurants by area, price range, or foodtype. How may I help you?
+User: 
+I am looking for traditional food
+System: 
+In which area would you like to eat?
+User: 
+IN the north part of town
+System: 
+What pricerange does the food have to be?
+User: 
+preferably cheap
+System: 
+Im sorry there is no cheap thai restaurant on the north side of town.
+ But we have an alternative. Is the indian restaurant "kohinoor" on the west part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+Don't you have traditional food?
+System: 
+Im sorry there is no cheap traditional restaurant on the north side of town.
+ But we have an alternative. Is the traditional restaurant "da vinci pizzeria" on the north part of town with a cheap price range ok? You could also ask about info on the restaurant.
+User: 
+Yes perfect
